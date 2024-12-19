@@ -764,6 +764,14 @@ Le théorème \ref{thm:comp} nous donne une propriété agréable pour la topolo
   Soient $\tau_1$ et $\tau_2$ des topologies sur un ensemble $X$. L'application identité
   $$\id: (X, \tau_1) \lra (X, \tau_2),$$
   donnée par $\id(x) = x$ est continue si et seulement si $\tau_1 \supseteq \tau_2$.
+
+  \tcblower
+  \begin{preuve}
+    Montrons d'abord l'implication vers la droite. Soit $U \in \tau_2$. Par continuité de $\id$, on sait que $\id^{-1}(U) = U \in \tau_2$ donc $\tau_2 \subseteq \tau_1$.
+    Pour l'implication vers la gauche, supposons que $\tau_2 \subseteq \tau_1$. Comme $\forall U \in \tau_2$, on a que $U \in \tau_1$, donc
+    $$\id^{-1}(U) = U \in \tau_1,$$
+    ce qui implique que $\id$ est continue.
+  \end{preuve}
 \end{lemme}
 
 
