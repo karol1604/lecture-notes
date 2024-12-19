@@ -1,0 +1,45 @@
+\begin{figure}[h]
+  \centering
+  % First Subfigure: Circle around point 'a'
+  \begin{subfigure}[b]{0.45\textwidth}
+      \centering
+      \begin{tikzpicture}[scale=0.9, >=stealth]
+          % Draw X and Y axes
+          \draw[->, thick] (-1,0) -- (5,0) node[right] {$x$};
+          \draw[->, thick] (0,-1) -- (0,5) node[above] {$y$};
+          \node[below] at (2.5, -0.25) {$d_\text{eucl}(x, a) \leq 1$};
+
+          % Define the coordinates of point 'a'
+          \coordinate (a) at (3,2);
+
+          % Draw point 'a'
+          \fill (a) circle (2pt) node[above right] {$a$};
+
+          % Draw a circle around point 'a' with radius 1
+          \draw (a) circle [radius=1];
+      \end{tikzpicture}
+      \label{fig:circle}
+  \end{subfigure}
+  \hfill
+  % Second Subfigure: Square around point 'a'
+  \begin{subfigure}[b]{0.45\textwidth}
+      \centering
+      \begin{tikzpicture}[scale=0.9, >=stealth]
+          % Draw X and Y axes
+          \draw[->, thick] (-1,0) -- (5,0) node[right] {$x$};
+          \draw[->, thick] (0,-1) -- (0,5) node[above] {$y$};
+          \node[below] at (2.5, -0.25) {$d_\infty(x, a) \leq 1$};
+
+          % Define the coordinates of point 'a'
+          \coordinate (a) at (3,2);
+
+          % Draw point 'a'
+          \fill (a) circle (2pt) node[above right] {$a$};
+
+          % Draw a square around point 'a' with side length 2 (centered at 'a')
+          \draw ($(a) + (-1,-1)$) rectangle ($(a) + (1,1)$);
+      \end{tikzpicture}
+      \label{fig:square}
+  \end{subfigure}
+  \label{fig:combined}
+\end{figure}

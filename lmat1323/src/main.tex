@@ -1,0 +1,779 @@
+\documentclass[french]{article}
+
+\input{preamble.tex}
+\input{env.tex}
+
+\begin{document}
+
+\begin{titlepage}
+  \newgeometry{top=3in, bottom=1in}
+  \maketitle
+  \thispagestyle{empty}
+  \centering
+  \vfill
+  LMAT1323
+  \vfill
+\end{titlepage}
+\restoregeometry
+
+\tableofcontents
+\thispagestyle{empty}
+
+\newpage
+
+\section{Espaces métriques}
+
+\subsection{Espace métrique}
+Définissons d'abord ce qu'est un espace métrique.
+\begin{definition}
+  Soit $X$ un ensemble et $d: X^2 \ra \R$ une fonction telle que
+  \begin{itemize}
+    \item[$D_1$] $d(x, y) = 0 \iff x = y$
+    \item[$D_2$] $d(x, y) = d(y, x)$ pour tout $x, y \in X$
+    \item[$D_3$] $d(x, y) + d(y, z) \geq d(x, z)$ pour tout $x, y, z \in X$  
+  \end{itemize}
+  alors, on dit que $d$ est une \textbf{\it métrique} sur $X$ et que $(X, d)$ est un \textbf{\it espace métrique}.
+\end{definition}
+
+\begin{lemme}
+  Si $d: X^2 \ra \R$ est une métrique, alors $d(x, y) \geq 0$ pour tout $x, y \in X$.
+
+  \tcblower
+  \begin{preuve}
+    Posons $z = x$ dans l'axiome $D_3$ pour obtenir 
+    $$d(x, y) + d(y, x) \geq d(x, x) = 0$$ 
+    Par $D_2$, $d(y, x) = d(x, y)$, donc on a $2d(x, y) \geq 0$. Vu que $2$ est inversible, on a $d(x, y) \geq 0$.
+  \end{preuve}
+\end{lemme}
+
+Ensuite, donnons quelque exemples d'espaces métriques.
+\begin{enumerate}
+  \item Soit $X = \R^n$ et $$d(x, y) = \left( \sum_{i=1}^n (x_i - y_i)^2 \right)^\frac{1}{2}$$
+  \item Soit $X = \R^n$ et $$d_1(x, y) = \sum_{i=1}^n |x_i - y_i| \quad\textrm{ (la métrique $l_1$)}$$
+    $$d_p(x, y) = \left( \sum_{i=1}^n \abs{x_i - y_i}^p \right)^\frac{1}{p} \quad\textrm{ (la métrique $l_p$)}$$
+  \item Soit $X = \R^n$ et $$d_\infty(x, y) = \max_{1 \leq i \leq n} \big\{ \abs{x_i - y_i} \big\} \quad\textrm{ (la métrique $l_\infty$)}$$
+  \item Soit $X = V$ un espace vectoriel normé et $$d(u, v) = \norm{u - v}$$
+  \item Soit $X = C([a, b])$ l'ensemble des fonctions continues sur $[a, b]$, $1 < p < \infty$ et $$d_p(f, g) = \left( \int_a^b \abs{f(t) - g(t)}^p dt\right)^\frac{1}{p} \quad\textrm{ (la métrique $l_p$ sur $C([a, b])$)} $$
+    sinon,
+    $$d_\infty(f, g) = \max_{a \leq t \leq b} \big\{ \abs{f(t) - g(t)} \big\} \quad\textrm{ (la métrique $l_\infty$ sur $C([a, b])$)}$$
+  \item Soit un ensemble $X$ et 
+    $$ d(x, y) = \begin{cases}
+      0 & \textrm{si } x = y \\
+      1 & \textrm{si } x \neq y
+    \end{cases} \quad\textrm{ (métrique discrète sur $X$)}$$
+\end{enumerate}
+
+\begin{theoreme}
+  Soient $(X_1, d_1), \dots, (X_n, d_n)$ des espaces métriques. Posons $$X = \prod_{i=1}^{n} X_i$$
+  Pour chaque $n$-uplet de points $x = (x_1, \dots, x_n), y = (y_1, \dots, y_n) \in X$, on définit la métrique
+  $d: X^2 \ra \R$ par
+  $$ d(x, y) = \max_{1 \leq i \leq n} \big\{ d_i(x_i, y_i)\big\}$$
+  alors $(X, d)$ est un espace métrique.
+
+  \tcblower
+  \begin{preuve}
+    Vérifions les axiomes de la métrique.
+    \begin{itemize}
+      \item[$D_1$] Si $d(x, y) = 0$, alors $d_i(x_i, y_i) = 0$ pour tout $i$. Donc $x_i = y_i$ pour tout $i$, donc $x = y$.
+        \newline Si $x = y$ alors $d_i(x_i, y_i) = 0$ pour tout $i$, donc $d(x, y) = 0$.
+      \item[$D_2$] Puisque $d_i(x_i, y_i) = d_i(y_i, x_i)$ pour tout $i$, on a $d(x, y) = d(y, x)$.
+      \item[$D_3$] Soit $z = (z_1, \dots, z_n) \in X$ et $j, k \in \N$ tels que
+        $$ d(x, y) = d_j(x_j, y_j) $$
+        $$ d(y, z) = d_k(x_k, y_k)$$
+        Alors, pour $i \in \{1, \dots, n\}$, on a
+        $$d_i(x_i, y_i) \leq d_j(x_j, y_j)$$
+        $$d_i(y_i, z_i) \leq d_k(y_k, z_k)$$
+        Vu que $d_i$ est une métrique, on a
+        $$d_i(x_i, z_i) \leq d_i(x_i, y_i) + d_i(y_i, z_i) \leq d_j(x_j, y_j) + d_k(y_k, z_k) = d(x, y) + d(y, z)$$
+        donc 
+        $$d(x, z) = \max_{1 \leq i \leq n} \big\{ d_i(x_i, z_i) \big\} \leq d(x, y) + d(y, z)$$
+    \end{itemize}
+  \end{preuve}
+\end{theoreme}
+
+\begin{remarque}
+  La métrique $d$ est appelée la \textbf{\it métrique produit} des métriques $d_1, \dots, d_n$.
+\end{remarque}
+
+Comparons maintenant les espaces métriques $\left(\R^2, d_\text{eucl} \right)$ et $\left(\R^2, d_\infty \right)$. Pour $a \in \R^2$ fixe, quels sont les ensembles
+$$ \left\{ x \in \R^2 : d_\text{eucl}(x, a) \leq 1 \right\} \quad \text{et} \quad \left\{ x \in \R^2 : d_\infty(x, a) \leq 1 \right\} \text{ ?}$$
+
+\input{figures/chap1/square_circle}
+
+\begin{definition}\label{def:isom}
+  Deux espaces métriques $(A, d_A)$ et $(B, d_B)$ sont \textbf{\it isométriques} s'il existe des fonctions réciproques $f: A \ra B$ et $g: B \ra A$ telles que pour chaque $x, y \in A$,
+  $$ d_B(f(x), f(y)) = d_A(x, y)$$
+  et pour chaque $u, v \in B$,
+  $$ d_A(g(u), g(v)) = d_B(u, v)$$
+\end{definition}
+
+\begin{theoreme}
+  Deux espaces métriques $(A, d_A)$ et $(B, d_B)$ sont isométriques si et seulement s'il existe $f: A \ra B$ telle que
+  \begin{enumerate}
+    \item $f$ est une bijection
+    \item pour tout $x, y \in A$, $d_B(f(x), f(y)) = d_A(x, y)$
+  \end{enumerate}
+
+  \tcblower
+  \begin{preuve}
+    Prouvons tout d'abord l'implication vers la droite. Supposons que $(A, d_A)$ et $(B, d_B)$ sont isométriques. Il existe donc des fonctions réciproques $f: A \ra B$ et $g: B \ra A$ ce qui implique que $f$ est une bijection. De plus, $f$ satisfait la condition $2$ par \eqref{def:isom}.
+    \newline Prouvons maintenant l'implication vers la gauche. Supposons que $f: A \ra B$ est une bijection telle que pour tout $x, y \in A$, $d_B(f(x), f(y)) = d_A(x, y)$. Vu que $f$ est bijection, elle est inversible. Soit $g: B \ra A$ telle que $f$ et $g$, déterminée en posant $$g(b) = a \text{ si  } f(a) = b$$ Pour tout $u, v \in B$, soient $x = g(u)$ et $y = g(v)$. Alors $$d_A(g(u), g(v)) = d_A(x, y)$$
+    Par 2, on a $$d_A(x, y) = d_B(f(x), f(y)) = d_B(u, v)$$
+  \end{preuve}
+\end{theoreme}
+
+\subsection{Fonctions continues sur les espaces métriques}
+
+Défnissons tout d'abord ce qu'est une fonction continue grâce à une ancienne définition du cours LMAT1121.
+\begin{definition}[Ancienne]
+  Une fonction $f: \R \ra \R$ est \textbf{\it continue}, étant donné $y \in \R$ et $\varepsilon > 0$, nous pouvons trouver un $\delta(y, \varepsilon) > 0$ tel que pour tout $x \in \R$
+  $$\abs{f(y) - f(x)} < \varepsilon \text{ si } \abs{y - x} < \delta(y, \varepsilon)$$
+\end{definition}
+Mais cette définition est trop rigide. Elle nous contraint à travailler dans l'espace $\R$ muni de la métrique euclidienne. Nous allons donc généraliser cette définition.
+
+\begin{definition}[Nouvelle]
+  Soit $(X, d)$ et $(Y, \rho)$ des espaces métriques. Une fonction $f: X \ra Y$ est \textbf{\it continue} si, étant donné $p \in X$ et $\varepsilon > 0$, il existe $\delta(p, \varepsilon) > 0$ tel que pour tout $x \in X$
+  $$\rho(f(p), f(x)) < \varepsilon \text{ si } d(p, x) < \delta(p, \varepsilon)$$
+\end{definition}
+Voici quelques exemples...
+
+\begin{lemme}
+  Si $(X, d)$, $(Y, \rho)$ et $(Z, \sigma)$ sont des espaces métriques et $g: X \ra Y$ et $f: Y \ra Z$ sont des fonctions continues, alors $f \circ g: X \ra Z$ est continue.
+\end{lemme}
+
+\subsection{Ensembles ouverts dans les espaces métriques}
+\begin{definition}
+  Soit $(X, d)$ un espace métrique. Nous disons qu'un sous-ensemble $E$ est ouvert si, pour tout $e \in E$, nous pouvons trouver un $\delta > 0$ (qui dépend de $e$) tel que
+  $$x \in E \text{ quand } d(x, e) < \delta$$
+\end{definition}
+Les ouverts de $(\R, d_\text{euc})$ sont des intervalles ouverts:
+$$e \in \R : \{ x \in \R \mid d(x, e) < \delta \} = ]e -\delta, e + \delta[$$
+
+\begin{definition}[Boule ouverte]
+  Soit $(X, d)$ un espace métrique, $x \in X$ et $r > 0$. On définit la boule ouverte de centre $x$ et de rayon $r$ par
+  $$B(x, r) = \{ y \in X \mid d(x, y) < r \}$$
+\end{definition}
+Prenons un exemple d'un ensemble qui n'est pas ouvert. Pour $(\R^n, d_\text{euc})$ et $x \in \R$, l'ensemble $\{ x \}$ n'est pas ouvert.
+\newline Si $(X, d_\varepsilon)$ est un espace métrique avec la métrique discrète, alors
+$$\{ x \} = B\left(x, \frac{1}{2}\right)$$
+et tout les sous-ensembles de $X$ sont ouverts. Notons que $d(x, x) = 0 < \frac{1}{2}$ et $d(x, y) = 1 > \frac{1}{2}$ pour $x \neq y$. Si $x \in E \subset X$ alors $d(x, y) < \frac{1}{2}$ implique $y = x \in E$ et donc $E$ est ouvert.
+
+\begin{theoreme}
+  Soit $(X, d)$ un espace métrique. Alors
+  \begin{enumerate}
+    \item $\varnothing$ et $X$ sont ouverts.
+    \item Si $U_\alpha$ est ouvert pour tout $\alpha \in A$, alors $\bigcup\limits_{\alpha \in A} U_\alpha$ est ouvert.
+    \item Si $U_j$ est ouvert pour tout $1 \leq j \leq n$, alors $\bigcap\limits_{j=1}^{n} U_j$ est ouvert.
+  \end{enumerate}
+
+  \tcblower
+  \begin{preuve}
+    \begin{enumerate}
+      \item Comme y a pas de points $e \in \varnothing$, l'affirmation
+        $$x \in \varnothing \text{ quand } d(x, e) < \delta$$
+        est vraie pour tout $e \in \varnothing$ donc $\varnothing$ est ouvert.
+      \item Si $e \in \bigcup\limits_{\alpha \in A} U_\alpha$ alors on trouve $\alpha_1 \in A$ particulier tel que $e \in U_{\alpha_1}$. Comme $U_{\alpha_1}$ est ouvert, on peut trouver $\delta > 0$ tel que $x \in U_{\alpha_1}$ quand $d(x, e) < \delta$. 
+        \newline Ensuite, comme $U_{\alpha_1} \subseteq \bigcup\limits_{\alpha \in A} U_\alpha$ on a $x \in \bigcup\limits_{\alpha \in A} U_\alpha$ quand $d(x, e) < \delta$ ce qui implique que $\bigcup\limits_{\alpha \in A} U_\alpha$ est ouvert.
+      \item Si $e \in \bigcap\limits_{j=1}^{n} U_j$ alors $e \in U_j$ pour tout $1 \leq j \leq n$. Comme $U_j$ est ouvert, on peut trouver $\delta_j > 0$ tel que $x \in U_j$ quand $d(x, e) < \delta_j$.
+        \newline Posons $\delta = \min\{\delta_1, \dots, \delta_n\}$. Clairement, $\delta > 0$ donc $x \in \bigcap\limits_{j=1}^{n} U_j$ quand $d(x, e) < \delta$ ce qui implique que $\bigcap\limits_{j=1}^{n} U_j$ est ouvert.
+    \end{enumerate}
+  \end{preuve}
+\end{theoreme}
+\begin{remarque}
+  Une interesection infinie d'ouverts n'est pas nécessairement ouverte.
+\end{remarque}
+Considérons par exemple $\R$ muni de la métrique usuelle. Par exemple, pour tout $n \in \N_*$, l'ensemble $]-1, \frac{1}{n}[$ est ouvert mais l'intersection infinie $$\bigcap\limits_{n=1}^{\infty} ]-1, \frac{1}{n}[ \: = \: ]-1, 0]$$ n'est pas ouverte.
+\newline Pour un autre exemple, considérons $(\R^n, d_\text{euc})$. Nous avons que $B\left(x, \frac{1}{j}\right)$ est ouvert mais l'intersection infinie
+$$\bigcap_{j=1}^{\infty} B\left(x, \frac{1}{j}\right) = \{x\}$$
+ne l'est pas.
+\newline Pour éviter toute confusion, nous introduisons la notation suivante: soit $(X, d)$ et $(Y, \rho)$ des espaces métriques et $f: X \ra Y$ une fonction. Pour $U \subseteq Y$,
+$$f^{-1}(U) = \{ x \in X \mid f(x) \in U \}$$
+\begin{theoreme}
+  Soit $(X, d)$ et $(Y, \rho)$ des espaces métriques. Une fonction $f: X \ra Y$ est continue si et seulement si $f^{-1}(U)$ est ouvert dans $X$ quand $U$ est ouvert dans $Y$.
+
+  \tcblower
+  \begin{preuve}
+    Pour la première partie de la preuve, supposons que $f$ est continue et que $U \subseteq Y$ est ouvert. Si $x \in f^{-1}(U)$, on peut trouver $y \in U$ tel que $y=f(x)$.
+    \newline Comme  $U \subseteq Y$ est ouvert, il existe $\varepsilon > 0$ tel que $z \in U$ quand $\rho(y, z) < \varepsilon$.
+    \newline Comme $f$ est continue, il existe $\delta > 0$ tel que
+    $$\rho(y, f(w)) = \rho(f(x), f(w)) < \epsilon \text{ quand } d(x, w) < \delta$$
+    C'est a dire que $w \in f^{-1}(U)$ quand $d(x, w) < \delta$ ce qui implique que $f^{-1}(U)$ est ouvert.
+    \newline Pour la deuxième partie de la preuve, supposons que $f^{-1}(U)$ est ouvert quand $U\subseteq Y$ est ouvert. Si $x \in X$ et $\epsilon > 0$, on sait que la boule ouverte
+    $$B\left(f(x), \epsilon\right) = \left\{ y \in Y \mid \rho(f(x), y) < \epsilon \right\}$$
+    est ouverte. Alors $x \in f^{-1}\left(B(f(x), \epsilon)\right)$ et $f^{-1}\left(B(f(x), \epsilon)\right)$ est ouvert.
+    \newline Il existe donc $\delta > 0$ tel que 
+    $$w \in f^{-1}\left(B(f(x), \epsilon)\right) \text{ quand } d(x, w) < \delta$$
+    c'est a dire que $\rho(f(x), f(w)) < \epsilon$ quand $d(x, w) < \delta$ ce qui implique que $f$ est continue.
+  \end{preuve}
+\end{theoreme}
+Avec ce théorème, on démontre la loi de composition très facilement: si $U$ est ouvert dans $Z$ alors, par continuité de $f$, $f^{-1}(U)$ est ouvert dans $Y$ et, par continuité de $g$, $(f \circ g)^{-1}(U) = g^{-1}\left(f^{-1}(U)\right)$ est ouvert dans $X$. Alors $f \circ g$ est continue.
+
+\subsection{Ensembles fermés dans les espaces métriques}
+\begin{definition}
+  Soit $x_n$ une suite dans un espace métrique $(X, d)$. Si pour $x \in X$ et $\epsilon >0$ donné, il existe un entier $N \geq 1$ (qui dépend que $\epsilon$) tel que
+  $$d(x_n, x) < \epsilon \text{ pour tout } n \geq N$$
+  nous disons que $x_n \ra x$ quand $n \ra \infty$ et que $x$ est la limite de la suite $x_n$.
+\end{definition}
+
+\begin{lemme}
+  Si une suite $x_n$ dans un espace métrique $(X, d)$ a une limite alors cette limite est unique.
+
+  \tcblower
+  \begin{preuve}
+    Procédons a une preuve par l'absurde. Supposons que $x_n \ra x$ et $x_n \ra y$ avec $x \neq y$. Pour chaque $\epsilon > 0$, on peut trouver $N_1, N_2$ entier tel que
+    $$d(x_n, x) < \frac{\epsilon}{2} \text{ pour tout } n \geq N_1$$
+    et
+    $$d(x_n, y) < \frac{\epsilon}{2} \text{ pour tout } n \geq N_2$$
+    En posant $N = \max\{N_1, N_2\}$, on obtient
+    $$d(x, y) \leq d(x, x_n) + d(x_n, y) \leq \frac{\epsilon}{2} + \frac{\epsilon}{2} = \epsilon$$
+    Comme $\epsilon$ est arbitraire, on a $d(x, y) = 0$ ce qui implique que $x = y$.
+  \end{preuve}
+\end{lemme}
+En utilisant le concept des suites et de leur limites, nous pouvons définir les ensembles fermés.
+
+\begin{definition}
+  Soit $(X, d)$ un espace métrique. Un ensemble $F \subseteq X$ est fermé si pour toute suite $x_n \in F$ qui converge vers $x$, $x \in F$.
+\end{definition}
+
+% TODO: Finish this!!!
+
+\section{Espaces topologiques}
+\subsection{Définitions et exemples}
+
+\begin{definition}
+  Soit $X$ un ensemble et $\tau$ une collection de sous-ensembles de $X$ satisfaisant les propriétés suivantes:
+  \begin{enumerate}
+    \item[$O_1$] $\varnothing, X \in \tau$
+    \item[$O_2$] Si $U_\alpha \in \tau$ pour tout $\alpha \in A$, alors $\bigcup\limits_{\alpha \in A} U_\alpha \in \tau$ 
+    \item[$O_3$] Si $U_j \in \tau$ pour tout $1 \leq j \leq n$, alors $\bigcap\limits_{j=1}^{n} U_j \in \tau$
+  \end{enumerate}
+  Nous disons que $\tau$ est une \textbf{topologie} sur $X$ et que $(X, \tau)$ est un \textbf{espace topologique}.
+\end{definition}
+Si $(X, \tau)$ est un espace topologique, nous appelons ensembles ouverts les élèments de $\tau$.
+\newline Prenons un espace métrique $(X, d)$ et posons $\tau_d = \{U \subseteq X \mid U \text{ ouvert par } d\}$. Alors $(X, \tau_d)$ est un espace topologique et $\tau_d$ est appelé la \textbf{\it topologie induite par la métrique} $d$.
+\newline Prenons ensuite l'ensemble $X = \{0, 1\}$. On peut munir celui-ci de plusieurs structures d'espace topologique.
+\begin{enumerate}
+  \item Si on pose $\tau = \left\{ \varnothing, \{0, 1\} \right\}$, alors $\tau$ satisfait les 3 axiomes et est appelé la topologie indiscrète.
+  \item Si on pose $\tau = \left\{ \varnothing, \{0\}, \{1\}, \{0, 1\} \right\}$, alors $\tau$ satisfait les 3 axiomes et est appelé la topologie discrète.
+\end{enumerate}
+% TODO: palenight theme
+\begin{lemme}
+  Soit $(X, \tau)$ un espace topologique. Si $\tau$ est induite par une métrique $d$, alors pour chaque paire de points distincts $a, b \in X$, il existe des ouverts disjoints $U_a$ et $U_b$ tel que $a \in U_a$, $b \in U_b$.
+
+  \tcblower
+  \begin{preuve}
+    Soit $r = d(a, b)$ et posons
+    $$U_a = B\left(a, \frac{r}{3} \right) \; \text{ et } \; U_b = B\left(b, \frac{r}{3}\right)$$
+    Alors, trivialement, $a \in U_a$, $b \in U_b$ et $U_a \cap U_b = \varnothing$.
+  \end{preuve}
+\end{lemme}
+Définissons ensuite ce qu'est un ensemble ferme dans un espace topologique.
+\begin{definition}
+  Soit $(X, \tau)$ un espace topologique. Un ensemble $A$ dans $X$ est dit fermé si son complément est ouvert.
+\end{definition}
+
+\begin{theoreme}
+  Si $(X, \tau)$ est un espace topologique alors les affirmations suivantes sont vraies:
+  \begin{itemize}
+    \item[$(F_1)$] $\varnothing$ et $X$ sont fermés.
+    \item[$(F_2)$] Si $F_\alpha$ est fermé pour tout $\alpha \in A$ alors $\bigcap_{\alpha \in A} F_\alpha$ est fermé.
+    \item[$(F_3)$] Si $F_j$ est fermé pour tout $1 \leq j \leq n$ alors $\bigcup_{j=1}^n F_j$ est fermé.
+  \end{itemize}
+
+  \tcblower
+  \begin{preuve}
+    $(F_1)$ $\varnothing^{c} = X$ est ouvert donc $\varnothing$ est fermé. De manière analogue, $X^{c} = \varnothing$ est ouvert donc $X$ est fermé.
+    \par $(F_2)$ Montrons que $\left(\bigcap_{\alpha \in A} F_\alpha \right)^{c}$ est ouvert. Clairement
+    $$\left(\bigcap_{\alpha \in A} F_\alpha \right)^{c} = \bigcup_{\alpha \in A} X \setminus F_\alpha$$
+    Par hypothèse, $F_\alpha$ est fermée alors $F_\alpha^{c} = X \setminus F_\alpha$ est ouvert. L'union d'ouverts est ouverte. En conséquence, on déduit que $\bigcap_{\alpha \in A} F_\alpha$ est fermé.
+    \par $(F_3)$ De manière analogue, montrons que
+    $$\left(\bigcup_{j=1}^n F_j \right)^{c}$$ 
+    est ouvert. Clairement,
+    $$\left(\bigcup_{j=1}^n F_j \right)^{c} = \bigcap_{j=1}^{n} X \setminus F_j.$$
+    On sait aussi que $X \setminus F_j = F_j^{c}$ est ouvert. L'intersection d'ouverts est ouverte. En conclusion, on déduit que $\bigcup_{j=1}^n F_j$ est fermé.
+  \end{preuve}
+\end{theoreme}
+
+\begin{theoreme}
+  Soient $(X, \tau)$ et $(Y, \sigma)$ des espaces topologiques. Une fonction $f: X \ra Y$ est continue si et seulement si $f^{-1}(F)$ est fermé dans $X$ quand $F$ est fermé dans $Y$.
+\end{theoreme}
+
+\subsection{Intérieur et fermeture}
+\begin{definition}
+  Soit $(X, \tau)$ un espace topologique et $A$ un sous-ensemble de $X$. Nous écrivons
+  $$\Int(A) = \bigcup \{ U \in \tau : U \subseteq A \} \text{ et } \Cl(A) = \bigcap \{ F \: \mathrm{ ferme} : F \supseteq A \}$$ 
+  et nous l'appelons respectivement l'intérieur de $A$ et la fermeture de $A$.
+\end{definition}
+
+\begin{lemme}
+  Nous avons $(\Cl(A^{c}))^{c} = \Int(A)$ et $(\Int(A^{c}))^{c} = \Cl(A)$.
+\end{lemme}
+
+\begin{lemme}
+  Soit $(X, \tau)$ un espace topologique et $X \subseteq A$.
+  \begin{enumerate}
+    \item $\Int(A) = \left\{ x \in A : \exists U \in \tau \text{ avec } x \in U \subseteq A \right\}.$ 
+    \item $\Int(A)$ est le plus large ouvert contenu dans $A$, c'est-a-dire $\Int(A)$ est l'unique $V \in \tau$ tel que $V \subseteq A$ et, si $W \in \tau$ et $V \subseteq W \subseteq A$ alors $V = W$.
+  \end{enumerate}
+
+  \tcblower
+  \begin{preuve}
+    1. Ceci est juste l'observation que
+    $$\Int(A) = \bigcup \left\{ U \in \tau : U \subseteq A \right\} =\left\{ x \in A : \exists U \in \tau \text{ avec } x \in U \subseteq A \right\} $$
+    2. Puisque $\Int(A) = \bigcup \left\{ U \in \tau : U \subseteq A \right\}$ nous savons que $\Int(A) \subseteq A$. Vu que l'union d'ouvert est ouverte, $\Int(A)$ est ouvert.
+    \newline Si $W \in \tau$ alors $W \subseteq A$ donc
+    $$\Int(A) = \bigcup \left\{ U \in \tau : U \subseteq A \right\} \supseteq W$$
+    et si $W \supseteq \Int(A)$ alors $W = \Int(A)$.
+  \end{preuve}  
+\end{lemme}
+
+\section{Davantage sur les structures topologiques}
+\subsection{Homéomorphismes}
+
+\begin{definition}
+  Nous disons que deux espaces topologiques $(X, \tau)$ et $(Y, \sigma)$ sont homéomorphes s'il existe une bijection $\theta: X \ra Y$ telle que $\theta$ et $\theta^{-1}$ sont continues. Dans ce cas, nous appelons $\theta$ un homéomorphisme.
+\end{definition}
+\begin{remarque}
+  Homéomorphisme implique équivalence en ce qui concerne la topologie.
+\end{remarque}
+
+\begin{lemme}
+  Homéomorphisme est une relation d’équivalence sur les espaces topologiques.
+  \tcblower
+  \begin{preuve}
+    On définit la relation d'équivalence de la manière suivante : $(X, \tau) \sim (Y, \sigma)$ si $(X, \tau)$ et $(Y, \sigma)$ sont homéomorphes.
+    \begin{enumerate}
+      \item Il est clair que $\sim$ est binaire
+      \item $\sim$ est réflexive, car il est clair que la fonction identité est un homéomorphisme.
+      \item Il est clair que $\sim$ est symétrique parce que si $X \overset{\theta}{\sim} Y$ alors $Y \overset{\theta^{-1}}{\sim}X$
+      \item $\sim$ est transitive
+    \end{enumerate}
+  \end{preuve}
+\end{lemme}
+Pour donner un exemple, $]-1, 1[$ est homéomorphe à $\R$. En fait, on peut définir une fonction $f: ]-1, 1[ \ra \R$ par
+$$f(x) = \tan\left(\frac{\pi x}{2} \right)$$ 
+qui est une bijection et a une réciproque continue $g: \R \ra ]-1, 1[$ donnée par
+$$g(y) = \frac{2}{\pi}\arctan(x)$$
+
+\begin{remarque}
+  $(\R^2, d_\text{euc})$ et $(\R^2, d_\infty)$ ne sont pas isométriques, mais $(\R^2, \tau_\text{euc})$ et $(\R^2, \tau_\infty)$ sont homéomorphes ! 
+\end{remarque}
+
+\begin{theoreme}
+  Soit $f: (X, \tau) \ra (Y, \sigma)$ une bijection continue. Les conditions suivantes sont equivalentes:
+  \begin{enumerate}
+    \item $f(U)$ est ouvert dans  $Y$ si $U$ est ouvert dans $X$.
+    \item  $f(F)$ est fermé dans $Y$ si $F$ est fermé dans $X$.
+    \item $f$ est un homéomorphisme.
+  \end{enumerate}
+
+  \tcblower
+  \begin{preuve}
+    Commençons par prouver que 1 implique 2. Soit $F \subseteq X$ fermé. Alors $F^{c}$ est ouvert. On a aussi
+    \begin{align*}
+      f(F^{c}) &= \left\{ f(x) \in Y \mid x \not \in F \right\} \\
+               &= \left\{ f(x) \in Y \mid f(x) \not \in f(F) \right\}
+    \end{align*}
+    La deuxième égalité découle du fait que $f$ est une bijection continue. De plus, on a
+    $$f(F)^{c} = \left\{ f(x) \in Y \mid f(x) \not \in f(F) \right\}$$
+    Par définition, $F^{c}$ est ouvert et par hypothèse, on sait que $f(F^{c})$ l'est aussi. Cela implique que $f(F)^{c}$ est ouvert donc $f(F)$ est fermé.
+    \par Prouvons ensuite que 2 implique 3. Posons $g = f^{-1}$ et $F \subseteq X$ fermé alors $g^{-1}(F) = f(F)$ qui est fermé par hypothèse. Ceci implique que $g$ est continue. On trouve donc que $f$ est $f^{-1}$ sont réciproques et toutes les 2 continues ce qui implique que $f$ est un homéomorphisme.
+    \par Le fait que 3 implique 1 se déduit trivialement.
+  \end{preuve}
+\end{theoreme}
+
+\subsection{Sous-espaces topologiques}
+Cette section est motivée par le fait de vouloir construire des espaces topologiques à partir d'autres.
+
+\begin{lemme}
+  Soit $X$ un espace et, soit $\mathcal{H}$ une collection de sous-ensembles de $X$. Alors, il existe une topologie unique  $\tau_\mathcal{H}$ telle que
+  \begin{enumerate}
+    \item $\tau_\mathcal{H} \supseteq \mathcal{H}$.
+    \item Si $\tau$ est une topologie avec $\tau \supseteq \mathcal{H}$ alors $\tau \supseteq \tau_\mathcal{H}$.
+  \end{enumerate}
+
+  \tcblower
+  \begin{preuve}
+    Prouvons d'abord l'unicité. Soit $\tau_\mathcal{H}$ et $\tau_\mathcal{H}'$ deux topologies qui satisfont les conditions. Puisque  $\tau_\mathcal{H} \supseteq \mathcal{H}$, on a $\tau_\mathcal{H}' \subseteq \tau_\mathcal{H}$. En échangeant les rôles, on obtient $\tau_\mathcal{H} \subseteq \tau_\mathcal{H}'$. On en conclut que $\tau_\mathcal{H} \tau_\mathcal{H}'$.
+  \end{preuve}
+\end{lemme}
+
+\begin{lemme}
+  Soit $A$ non-vide, $(X_\alpha, \tau_\alpha)$ des espaces topologiques et $f_\alpha: X \ra X_\alpha$ des applications avec  $\alpha \in A$. Alors, il existe une plus petite topologie $\tau$ sur $X$ pour laquelle $f_\alpha$ sont continues.
+
+  \tcblower
+  \begin{preuve}
+    Posons $$\H = \left\{ f_\alpha^{-1}(U) \mid \alpha \in A, U \in \tau_\alpha \right\}$$. On sait que les application $f_\alpha$ sont continues pour $\tau$ si  $f_\alpha^{-1}(U) \in \tau$. Posons donc $\tau = \tau_\H$. Alors, on obtient que  $\forall f_\alpha, \forall U \in \tau_\alpha, f_\alpha^{-1}(U) \in \tau_\H$, car $\H \subseteq \tau_\H$. De plus, tout $f_\alpha^{-1}(U) \in X$ donc $\tau_\H$ est une topologie sur  $X$ telle que  $\forall \alpha \in A$, $f_\alpha$ est continue.
+  \end{preuve}
+\end{lemme}
+
+Si $Y \subseteq X$ alors l'application inclusion $j: Y \ra X$ est définie par  $j(y) = y$ pour tout  $y \in Y$.
+
+\begin{definition}
+  Si $(X, \tau)$ est un espace topologique et $Y \subseteq X$, alors la topologie de sous-espace $\tau_Y$ sur $Y$ induite par  $\tau$ est la plus petite topologie sur $Y$ pour laquelle l'application inclusion est continue. 
+  \par On dit alors que $Y$ est un sous-espace topologique de $X$.
+\end{definition}
+Caractérisons la topologie de sous-espace.
+\begin{lemme}
+  Soit $(X, \tau)$ un espace topologique et $Y \subseteq X$. Alors la topologie de sous-espace $\tau_Y$ sur  $Y$ est
+  $$\tau_Y = \left\{ Y \cap U \mid U \in \tau \right\}.$$
+
+  \tcblower
+  \begin{preuve}
+    Posons $$\theta = \left\{ Y \cap U \mid U \in \tau \right\}.$$ Puisque $j: (Y, \tau_Y) \ra (X, \tau)$ est continue par hypothèse, on a que si  $U \in \tau$ alors $j^{-1}(U) \in \tau_Y$. Or,
+    \begin{align*}
+      j^{-1}(U) &= \left\{ y \in Y \mid j(y) \in U \right\} \\
+                &= \left\{ y \in Y \mid y \in U \right\} \\
+                &= Y \cap U \in \tau_Y.
+    \end{align*}
+    Donc $\tau_Y$ est la plus petite topologie sur $Y$ contenant $\theta$. Montrer que $\theta$ est une topologie se fait trivialement.
+  \end{preuve}
+\end{lemme}
+
+\subsection{Produits d'espaces topologiques}
+\begin{definition}
+  Si $(X, \tau)$ et  $(Y, \sigma)$ sont des espaces topologiques, alors la topologie produit $\mu$ sur  $X \times Y$ est la plus petite topologie sur $X \times Y$ pour laquelle les applications de projections
+  \begin{align*}
+    \pi_X: X \times Y &\longrightarrow X \\
+    (x, y)&\longmapsto x
+  \end{align*}
+  et
+  \begin{align*}
+    \pi_Y: X \times Y &\longrightarrow Y \\
+    (x, y)&\longmapsto y
+  \end{align*}
+  sont continues.
+\end{definition}
+
+\begin{lemme}
+  Soient $(X, \tau)$ et $(Y, \sigma)$ des espaces topologiques et $\mu$ la topologie produit sur $X \times Y$. Alors  $O \in \mu$ si et seulement si, pour $(x, y) \in O$ donnes, nous pouvons trouver $U \in \tau$ et $V \in \sigma$ tels que
+  $$(x, y) \in U \times V \subseteq O.$$
+\end{lemme}
+Pour reconnaître des espaces comme homéomorphes à des produits d’autres espaces, il sera utile d’avoir une description simple pour les applications vers les espaces produit.
+\begin{propo}
+  Soient $(X, \tau), (Y, \sigma)$ et $(Z, \rho)$ des espaces topologiques. Une application continue  $f: X \ra Y \times Z$ correspond à une paire de fonctions continue  $f_Y: X \ra Y$ et  $f_Z: X \ra Z$.
+
+  \tcblower
+  \begin{preuve}
+    % TODO: proof
+  \end{preuve}
+\end{propo}
+
+\begin{lemme}
+  Soient $\tau_1$ et  $\tau_2$ deux topologies sur le même espace $X$. Nous avons  $\tau_1 \subseteq \tau_2$ si et seulement si, pour $x \in U \in \tau_1$ donné, nous pouvons trouver $V \in \tau_2$ tel que $x \in V \subseteq  U$.
+  \par Nous avons $\tau_1 = \tau_2$ si et seulement si, $\tau_1 \subseteq \tau_2$ et $\tau_2\subseteq \tau_1$.
+\end{lemme}
+
+\subsection{Topologie quotient}
+Si $\sim$ est une relation d'équivalence sur un ensemble $X$, nous savons qu'elle donne l'origine a des classes d'équivalences
+$$[x] = \left\{ y \in X \mid y \sim x \right\}.$$
+Il existe une application naturelle $q$ des $X$ vers l'ensemble des classes d'équivalences $X/\sim$ qui est donnée par $q(x) = [x]$.
+
+\begin{lemme}
+  Soit $(X, \tau)$ un espace topologique et $Y$ un ensemble. Si $f: X \ra Y$ est une application et nous écrivons
+  $$\sigma = \left\{ U \subseteq Y \mid f^{-1}(U) \in \tau \right\}$$ 
+  alors $\sigma$ est une topologie sur $Y$ telle que
+  \begin{enumerate}
+    \item $f: X \ra Y$ est continue.
+    \item Si $\theta$ est une topologie sur $Y$ avec $f: (X, \tau) \ra (Y, \sigma)$ continue, alors $\theta \subseteq \sigma$.
+  \end{enumerate}
+
+  \tcblower
+  \begin{preuve}
+    1. ??? % TODO: proof
+    \par 2. Montrons que $\sigma$ est une topologie.
+    \begin{enumerate}
+      \item $f^{-1}(\varnothing) = \varnothing \in \tau \implies \varnothing \in \sigma$. Ensuite, $f^{-1}(X) = X \in \tau \implies X \in \sigma$.
+      \item Si $\forall \alpha \in A, U_\alpha \in \sigma, f^{-1}(U_\alpha) \in \tau$ et donc
+        $$f^{-1}\left(\bigcup_{\alpha \in A} U_\alpha \right) = \bigcup_{\alpha \in A} f^{-1}\left( U_\alpha \right) \in \tau \implies \bigcup_{\alpha \in A} U_\alpha \in \sigma.$$ 
+      \item Si pour $j \in \left\{ 1, \dots, n \right\}, U_j \in \sigma$ on a que $f^{-1}(U_j) \in \tau$. Donc,
+        $$f^{-1}\left( \bigcap_{j=1}^nU_j \right) = \bigcap_{j=1}^n f^{-1}(U_j) \in \tau \implies \bigcap_{j=1}^n U_j \in \sigma.$$
+    \end{enumerate}
+  \end{preuve}
+\end{lemme}
+
+\begin{definition}\label{def:qutop}
+  Soit $(X, \tau)$ un espace topologique et $\sim$ une relation d'équivalence sur $X$. Écrivons  $q$ pour l'application de $X$ vers l'espace $X/\sim$ donnée par $q(x) = [x]$. La topologie quotient $\sigma$ est la topologie la plus large sur $X/\sim$ pour laquelle $q$ est continue, c'est-à-dire
+  $$\sigma = \left\{ U \subseteq X/\sim \mid q^{-1}(U) \in \tau \right\}.$$
+\end{definition}
+
+\begin{lemme}
+  En utilisant les suppositions et notations de la définition \ref{def:qutop}, la topologie quotient consiste à des ensembles $U$ tels que
+  $$\bigcup_{[x] \in U} [x] \in \tau.$$
+
+  \tcblower
+  \begin{preuve}
+    $$\sigma = \left\{ U \in X/\sim \mid q^{-1}(U) \in \tau \right\}$$ 
+    Effectuons le calcul
+     \begin{align*}
+       q^{-1}(U) &= \left\{ x \in X \mid [x] \in U \right\} \\
+                 &= \bigcup_{[x] \in U} [x]
+    \end{align*}
+    Ceci implique que
+    $$\sigma = \left\{ U \in X/\sim \mid \bigcup_{[x] \in U} [x] \in \tau \right\}.$$
+  \end{preuve}
+\end{lemme}
+
+\section{Espaces de Hausdorff}
+\begin{definition}
+  Un espace topologique $(X, \tau)$ est dit d'Hausdorff si $\forall x, y \in X$ avec $x \not = y$, il existe  $U_x, U_y \in \tau$ tels que $x \in U_x$, $y \in U_y$ et $U_x \cap U_y = \varnothing$.
+\end{definition}
+Une remarque importante à prendre en compte est que les espaces métriques sont Hausdorff. Si $(X, d)$ est un espace métrique alors la topologie induite par cette métrique est Hausdorff.
+\begin{definition}
+  Soit $(X, \tau)$ un espace topologique et $x \in U \in \tau$. On dit que $U$ est un voisinage ouvert de $x$. 
+\end{definition}
+
+\begin{lemme}\label{lem:ouv}
+  Si $(X, \tau)$ est un espace topologique, alors un sous-ensemble $A \subseteq X$ est ouvert si et seulement si tout point de $A$ a un voisinage ouvert $U \subseteq A$.
+
+  \tcblower
+  \begin{preuve}
+    Prouvons d'abord l'implication vers la droite. Si $A$ est ouvert, c'est-à-dire $A \in \tau$ alors $\forall x \in A$, $x \in A \subseteq A$.
+    \par Traitons ensuite l'implication vers la gauche. Par hypothèse, $\forall x \in A$, $x$ possède un voisinage ouvert $U_x \subseteq A$. Cela implique que
+    $$\bigcup_{x\in A} U_x \subseteq A.$$
+    Puisque tous les points de $A$ admettent un voisinage ouvert, on sait aussi que
+    $$A \subseteq \bigcup_{x \in A} U_x.$$
+    On conclut que $$A = \bigcup_{x \in A} U_x$$.
+  \end{preuve}
+\end{lemme}
+
+\begin{propo}\label{prop:singl}
+  Si $(X, \tau)$ est un espace de Hausdorff alors les singletons $\left\{ x \right\}$ sont fermés.
+
+  \tcblower
+  \begin{preuve}
+    Montrons que $A = X \setminus \left\{ x \right\}$ est ouvert.
+    \par Soit $y \in A$, c'est-à-dire $y \not = x$. Par hypothèse, il existe  $U, V \in \tau$ tels que $x \in U$, $y \in V$, et $U \cap V = \varnothing$. Puisque $x \not \in V$, on sait que $\forall y \in A$, $y \in V \subseteq A$. On conclut par le lemme \ref{lem:ouv} que $A$ est ouvert et donc que $X \setminus A = \left\{ x \right\}$ est fermé.
+  \end{preuve}
+\end{propo}
+
+\begin{remarque}
+  La réciproque de la proposition \ref{propo:singl} est fausse.
+\end{remarque}
+
+\begin{propo}
+  Soit $(X, \tau)$ un espace topologique. Si $(X, \tau)$ est Hausdorff alors $Y \subseteq X$ avec la topologie de sous-espace l'est aussi.
+
+  \tcblower
+  \begin{preuve}
+    Soit $\tau_Y$ la topologie de sous-espace de $Y$ sur $X$. Soit $x, y \in Y$ tels que $x \not = y$. Alors $x, y \in X$. Par hypothèse, $\exists U, V \in \tau$ tels que $x \in U$, $y \in V$ et $U \cap V = \varnothing$.
+    \par Posons $\tilde{U} = U \cap Y$ et $\tilde{V} = V \cap Y$. Par définition de  $\tau_Y$, on sait que  $\tilde{U}, \tilde{V} \in \tau_Y$. Puisque $x, y \in Y$, on sait que $x \in \tilde{U} \subseteq U$ et $y \in \tilde{V} \subseteq V$. En effectuant l'intersection
+    $$\tilde{V} \cap \tilde{U} = (Y \cap V) \cap (Y \cap U) = \varnothing$$
+    ce qui implique que $(Y, \tau_Y)$ est Hausdorff.
+  \end{preuve}
+\end{propo}
+ 
+\begin{propo}
+  Si $(X, \tau)$ et $(Y, \sigma)$ sont des espaces d'Hausdorff alors $X \times Y$ avec la topologie produit l'est aussi.
+
+  \tcblower
+  \begin{preuve}
+    Soient $a, b \in X$ et $c, d \in Y$ tels que $(a, b) \not = (c, d)$. Si $a \not = c$ et $b \not = d$,  $\exists U, V \in \tau$ tels que $a \in U$, $c \in V$ et $U \cap V = \varnothing$. De plus, $\exists \tilde{U}, \tilde{V} \in \sigma$ tels que $b \in \tilde{U}$, $d \in \tilde{V}$ et $\tilde{U} \cap \tilde{V} = \varnothing$.
+  \end{preuve}
+\end{propo}
+
+\begin{propo}
+  Soient $(X, \tau)$ et $(Y, \sigma)$ des espaces topologiques. Si $f: X \ra Y$ est continue et injective et $Y$ est Hausdorff alors $X$ l'est aussi.
+
+  \tcblower
+  \begin{preuve}
+    Soient $x, y \in X$ avec $x \not = y$. Puisque $f$ est injective, on sait que $f(x) \not = f(y)$.
+    \par Vu que  $Y$ est Hausdorff, $\exists U, V \in \sigma$ tels que $f(x) \in U$, $f(y) \in V$ et $U \cap V = \varnothing$.
+    \par Par continuité de $f$, on a que  $f^{-1}(U), f^{-1}(V) \in \tau$. Comme $f$ est injective, $f^{-1}(U) \cap f^{-1}(V) = \varnothing$ et vu que $x \in f^{-1}(U)$ et $y \in f^{-1}(V)$, l'espace $(X, \tau)$ est Hausdorff.
+  \end{preuve}
+\end{propo}
+
+Nous voyons que tout le sous-espace d’un espace d'Hausdorff l’est aussi. En particulier, tous les sous-espaces de $\R^n$ sont Hausdorff ! Néanmoins, il existe des espaces topologiques qui ne sont pas Hausdorff. La topologie indiscrète est un exemple simple, mais il y en a d’autres.
+
+\section{Compacité}
+\subsection{Espaces compactes}
+
+\begin{definition}
+  Un espace topologique $(X, \tau)$ est dit \textbf{compact} si, pour chaque collection $\left\{ U_\alpha \right\}_{\alpha \in A}$ d'ensembles ouverts avec $\bigcup\limits_{\alpha \in A}U_\alpha = X$, nous pouvons trouver une sous-collection finie $U_{\alpha(1)}, \dots, U_{\alpha(n)}$ avec  $\alpha(j) \in A$ et $1 \leq j \leq n$ tel que  $\bigcup\limits_{j=1}^n U_{\alpha(j)} = X$.
+  \par Nous disons que $\left\{ U_\alpha \right\}_{\alpha \in A}$ tel que $\bigcup\limits_{\alpha \in A} U_\alpha = X$ est un \textbf{recouvrement} de $X$ (par des ouverts).
+\end{definition}
+
+Par exemple, la droite réelle $\R$ n'est pas compacte, car le recouvrement de  $\R$ par les ouverts
+$$\left\{\; ]n, n+2[ \; \mid n \in \Z \; \right\}$$ 
+ne contient pas une sous-collection finie recouvrant $\R$.
+
+\begin{remarque}
+  Tout espace $X$ contenant un nombre fini de points est forcément compact, car dans ce cas tous les recouvrements de $X$ sont finis.
+\end{remarque}
+
+\begin{definition}
+  Si $(X, \tau)$ est un espace topologique, alors un sous-ensemble $Y \subseteq X$ est dit compact si la topologie de sous-espace sur $Y$ est compacte.
+\end{definition}
+
+\begin{lemme}
+  Un sous-ensemble $Y$ d'un espace topologique $(X, \tau)$ est dit compact si, pour chaque collection $\left\{ U_\alpha \right\}_{\alpha \in A}$ d'ensembles ouverts avec $\bigcup\limits_{\alpha \in A} U_\alpha \supseteq Y$, nous pouvons trouver une sous-collection finie $U_{\alpha(1)}, \dots, U_{\alpha(n)}$ avec $\alpha(j) \in A$ et $1 \leq j \leq n$, tel que $\bigcup\limits_{j=1}^n U_{\alpha(j)} \supseteq Y$.
+
+  \tcblower
+  \begin{preuve}
+    Si $Y$ est compact, par définition, il existe une collection $\left\{ V_\alpha \right\}_{\alpha \in A}$ telle que $V_\alpha \in \tau_Y$ pour tout $\alpha \in A$ avec $$Y = \bigcup_{\alpha \in A} V_\alpha.$$
+    Vu que $V_\alpha \in \tau_Y, \exists U_\alpha \in \tau$ tel que $V_\alpha = Y \cap U_\alpha$. On sait que  $V_\alpha \subseteq U_\alpha$ et donc la collection $\left\{ U_\alpha \right\}_{\alpha \in A}$ est un recouvrement de $Y$ dans $X$, c'est-à-dire  $$Y \subseteq \bigcup_{\alpha \in A} U_\alpha.$$
+    Puisque $Y$ est compact, $\exists \alpha(1), \dots, \alpha(n) \in A$ tel que
+    $$Y = \bigcup_{i=1}^n V_{\alpha(i)} = \bigcup_{i=1}^n \left( Y \cap U_{\alpha(i)} \right).$$
+    Étant donné que pour $1 \leq i \leq n$, on a $Y \cap U_{\alpha(i)} \subseteq U_{\alpha(i)}$ et donc
+    $$Y = \bigcup_{i=1}^n \left( Y \cap U_{\alpha(i)} \right) \subseteq \bigcup_{i=1}^n U_{\alpha(i)}.$$
+    Ainsi, si $Y$ est compact, pour tout recouvrement $\left\{ U_\alpha \right\}_{\alpha \in A}$ de $Y$ dans $X$, il existe un sous-recouvrement fini $\left\{ U_{\alpha(i)} \right\}_{1 \leq i \leq n}$ de $Y$ dans $X$.
+  \end{preuve}
+\end{lemme}
+
+L'idée est qu'un ensemble est compact si chaque fois qu'il est recouvert par des ouverts, il est recouvert par un nombre fini d'entre eux.
+\par Nous disons qu’un sous-ensemble d’un espace métrique est borné s’il est contenu dans une boule ouverte avec un rayon fini.
+
+\begin{propo}
+  Soit $\R$ muni de la topologie usuelle. L'intervalle fermé et borné $[a, b]$ est compact.
+
+  \tcblower
+  \begin{preuve}
+    Si $a=b$ le cas est trivial. Supposons $a < b$ et prenons un recouvrement ouvert
+    $$[a, b] \subseteq \bigcup_{i \in I} \mathcal{U}_i.$$
+    On a en particulier que c'est un recouvrement de $[a, x]$ pour tout $x \in [a, b]$. Posons $S$ l'ensemble de tous les $x\in [a, b]$ tels que $[a, x]$ admet un sous-recouvrement fini de $\bigcup\limits_{i \in I} \U_i$. Il existe alors $i_0 \in I$ tel que $a \in \U_{i_0}$, donc $a \in S$.
+    On déduit alors que $S$ est un sous-ensemble non vide de $\R$ borné par $b$. On peut poser
+    $$x_0 \coloneq \sup S \in [a, b].$$
+    Ensuite, montrons par contradiction que $x_0 = b$. Supposons que $x_0 < b$ et notons que $x_0 > a$. En effet, il existe  $i_0 \in I$ et $\epsilon > 0$ tel que  $[a, a+\varepsilon] \subseteq \U_{i_0}$, et donc $x_0 \geq a + \varepsilon$.
+    \par Prenons $i_0 \in I$ tel que $x_0 \in \U_{i_0}$ et $\varepsilon > 0$ tel que  $a \leq x_0 - \varepsilon < x_0 < x_0 + \varepsilon \leq b$. Alors
+    $$[x_0 - \varepsilon, x_0 + \varepsilon] \subseteq \U_{i_0}.$$
+    Puisque $x_0 - \varepsilon$ n'est pas un supremum de $S$, il existe $x_0 - \varepsilon \leq x_1 \leq x_0$ tel que $x_1 \in S$. De telle manière, l'intervalle $[a, x_1]$ admet un recouvrement fini, c'est-à-dire
+    $$[a, x_1] \subseteq \bigcup_{j=1}^n \U_{i_j}.$$
+    Mais alors, comme $x_0 - \varepsilon \leq x_1 \leq x_0$ et comme $[x_0 - \varepsilon, x_0+\varepsilon] \subseteq U_{i_0}$, on a que
+    $$[a, x_0+\varepsilon] \subseteq \bigcup_{j=1}^n U_{i_j} \cup U_{i_0}.$$
+    Il suit que $x_0 + \varepsilon \in S$ ce qui contredit $x_0 = \sup S$. Ainsi, $\sup S = b$ et un argument analogue montre que  $b \in S$. Ceci implique qu'il existe un recouvrement fini
+    $$[a, b] \subseteq \bigcup_{j=1}^n \U_{i_j}.$$
+  \end{preuve}
+\end{propo}
+
+\begin{theoreme}[Heine-Borel]\label{thm:borel}
+  Un sous-espace $T$ de $\R^n$ (muni de la topologie usuelle) est compact si et seulement s'il est fermé (comme un sous-ensemble) et borné.
+\end{theoreme}
+Nous allons déduire la preuve de ce théorème comme conséquences de quelques théorèmes à suivre.
+
+\begin{theoreme}
+  Un sous-ensemble fermé d'un ensemble compact est compact. Plus précisément, soit $(X, \tau)$ un espace topologique. Si $E \subseteq X$ est compact et $F$ est fermé dans une topologie donnée alors, si $F \subseteq  E$ nous avons que $F$ est aussi compact.
+
+  \tcblower
+  \begin{preuve}
+    Soit $\left\{ \U_\alpha \right\}_{\alpha \in A}$ un recouvrement de $F$. Puisque $X \setminus F \in \tau$, on a que
+    $$\bigcup_{\alpha \in A} \U_\alpha \cup (X \setminus F) = X \supseteq E$$
+    qui est un recouvrement de $E$.
+    \par Vu que $E$ est compact, $\exists \alpha(j) \in  A$ avec $1 \leq j \leq n$ tels que
+    $$E \subseteq (X \setminus F) \cup \bigcup_{j=1}^n \U_{\alpha(j)}.$$
+    Comme $X \setminus F \cap F = \varnothing$ et $F \subseteq E$, on a
+    $$F \subseteq \bigcup_{j=1}^n \U_{\alpha(j)}$$
+    ce qui implique que $F$ est compact.
+  \end{preuve}
+\end{theoreme}
+
+La conséquence de ce théorème par rapport au théorème \ref{thm:borel} est la suivante. Si $A \subseteq \R^n$ est fermé et borné, alors $A$ est compact. La démonstration est assez simple. Comme $A$ est borné,
+$$A \subseteq B(0, R) \subseteq [-R, R]^n.$$ 
+Puisque $[-R, R]^n$ est compact, $A$ est fermé et $A \subseteq [-R, R]^n$, on a que $A$ est compact.
+
+\begin{propo}
+  Si $A \subseteq \R^n$ est compact, alors $A$ est borné.
+
+  \tcblower
+  \begin{preuve}
+    Soit $A \subseteq \R^n$ compact, alors
+    $$A \subseteq \bigcup_{R>0} B(0, R) = \R^n.$$
+    Par compacité, $\exists R_1, \dots, R_n$ tel que
+    $$A \subseteq \bigcup_{i=1}^n B(0, R_i) = B(0, \bar{R}) \text{ avec } \bar{R} = \max R_i.$$
+    On déduit que $A$ est borné.
+  \end{preuve}
+\end{propo}
+La conséquence pour le théorème \ref{thm:borel} est immédiate.
+
+\begin{theoreme}
+  Si $(X, \tau)$ est un espace d'Hausdorff, alors tout sous-ensemble $K \subseteq X$ compact est fermé.
+
+  \tcblower
+  \begin{preuve}
+    Soient $c \in K$ et $x \in X\setminus K$, alors $x \not = c$. Comme  $X$ est Hausdorff, $\exists U_x, U_c \in \tau$ tel que $x \in U_x$, $c \in U_c$ et $U_x \cap U_c = \varnothing$.
+    \par Comme
+    $$K \subseteq \bigcup_{c \in K} \left\{ c \right\} \subseteq \bigcup_{c \in K} U_c, $$
+    on a que $\bigcup\limits_{c \in K} U_c$ est un recouvrement ouvert de $K$. Par compacité de $K$,  $\exists c(1), \dots, c(n)$ tel que $\bigcup\limits_{j=1}^n U_{c(j)}$ est un recouvrement fini de  $K$.
+    \par Puisque  $\forall x \in X \setminus K, U_x \cap U_c = \varnothing$, on a que
+    $$U_x \cap \bigcup_{j=1}^n U_{c(j)} = \varnothing$$
+    ce qui implique que $U_x \cap K = \varnothing$.
+    \par Comme $\forall x \in X \setminus K$, $\exists U_x$ avec $U_x \cap K = \varnothing$, $x$ possède un voisinage ouvert: $x \in U_x \subseteq X \setminus K$. Ceci implique que $X \setminus K$ est ouvert donc $K$ est fermé.
+  \end{preuve}
+\end{theoreme}
+
+La conséquence par rapport au théorème \ref{thm:borel} est la suivante: Si $A \subseteq \R^n$ est compact, alors $A$ est fermé. La démonstration est la suivante. Puisque $\R^n$ muni de la topologie usuelle est Hausdorff et étant donné que $A$ est compact, on a par le théorème précédent que $A$ est fermé.
+
+\begin{theoreme}\label{thm:comp}
+  Soient $(X, \tau)$ et $(Y, \sigma)$ des espaces topologiques et $f: X \ra Y$ une fonction continue. Si $K$ est un sous-ensemble compact de $X$ alors $f(K)$ est un sous-ensemble compact de $Y$.
+
+  \tcblower
+  \begin{preuve}
+    Soit $A$ un ensemble et soient $U_\alpha \in \sigma$ avec $\alpha \in A$ tels que $$f(K) \subseteq \bigcup\limits_{\alpha \in A} U_\alpha.$$
+    Alors
+    $$\bigcup_{\alpha \in A} f^{-1}(U_\alpha) = f^{-1}\left( \bigcup_{\alpha \in  A} U_\alpha \right) \supseteq K.$$ 
+    Par continuité de $f$,
+     $$f^{-1}\left( \bigcup_{\alpha \in  A} U_\alpha \right) \in \tau.$$
+     Par compacité de $K$,  $\exists \alpha(1), \dots, \alpha(n) \in A$ tels que
+     $$K \subseteq \bigcup_{j=1}^n f^{-1}(U_{\alpha(j)}) \in \tau.$$
+     Donc,
+     $$\bigcup_{j=1}^n U_{\alpha(j)} \supseteq f\left( f^{-1}\left( \bigcup_{j=1}^n U_{\alpha(j)} \right) \right) \supseteq K.$$
+     Ceci implique que $f(K)$ est compact.
+  \end{preuve}
+\end{theoreme}
+
+\begin{cor}[Propriété topologique]
+  Si $(X, \tau)$ et $(Y, \sigma)$ sont homéomorphes, alors $(X, \tau)$ est compact si et seulement si $(Y, \sigma)$ l'est aussi.
+
+  \tcblower
+  \begin{preuve}
+    Il existe $f: X \ra Y$ continue et bijective, avec $y = f(x)$ et  $x = f^{-1}(y)$. Par le théorème précédent, si $X$ est compact alors $Y$ est compact et si $Y$ est compact alors $X$ est compact.
+  \end{preuve}
+\end{cor}
+
+Le théorème \ref{thm:comp} nous donne une propriété agréable pour la topologie quotient.
+
+\begin{cor}
+  Soit $(X, \tau)$ un espace topologique compact et $\sim$ une relation d'équivalence sur $X$. Alors la topologie quotient  $X /\sim$ est compacte.
+
+  \tcblower
+  \begin{preuve}
+    Par définition d'espace topologique quotient,
+    \begin{align*}
+      q: X &\lra X / \sim \\
+      x &\longmapsto [x]
+    \end{align*}
+    est continue donc la preuve découle du théorème \ref{thm:comp}.
+  \end{preuve}
+\end{cor}
+
+% TODO: finish this
+
+\begin{theoreme}
+  Soit $(X, \tau)$ un espace topologique compact et $(Y, \sigma)$ un espace topologique d'Hausdorff. Si $f: X \ra Y$ est une bijection continue, alors $f$ est un homéomorphisme.
+
+  \tcblower
+  \begin{preuve}
+    Par bijectivité de $f$ on a que, pour  $U \in \tau$,
+    $$\left(f^{-1} \right)^{-1}(U) = f(U) = Y \setminus f(X \setminus U).$$
+    Comme $X$ est compact, $X \setminus U$ est compact car fermé.
+    \par Comme $Y$ est Hausdorff, $f(X \setminus U)$ est fermé car compact.
+    \par Il suit que  $f(U)$ est ouvert ce qui implique que $f^{-1}$ est continue et donc $f$ est un homéomorphisme.
+  \end{preuve}
+\end{theoreme}
+
+\begin{lemme}
+  Soient $\tau_1$ et $\tau_2$ des topologies sur un ensemble $X$. L'application identité
+  $$\id: (X, \tau_1) \lra (X, \tau_2),$$
+  donnée par $\id(x) = x$ est continue si et seulement si $\tau_1 \supseteq \tau_2$.
+\end{lemme}
+
+
+\newpage
+
+\begin{figure}[ht]
+  \centering
+  \incfig{drawing}
+  \caption{Chemin $\gamma$ reliant $x$ à $y$}
+\end{figure}
+
+asldkjalskdjalksjdalksjdlkasjdlkasjdlkdasjdlkasjd
+\end{document}
