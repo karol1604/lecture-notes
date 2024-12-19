@@ -1,0 +1,120 @@
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[a4paper,margin=2cm]{geometry}
+\usepackage{babel}
+
+\usepackage{amsmath, amsfonts, amssymb, mathrsfs, mathtools}
+\usepackage{esvect}
+\usepackage{systeme}
+\usepackage{braket}
+
+\usepackage{fontspec}
+
+% \usepackage{fouriernc}
+
+\usepackage{helvet}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{titling}
+\usepackage{graphicx}
+\usepackage{hyperref}
+
+\usepackage{caption}  
+\usepackage{subcaption}
+
+\usepackage{import}
+\usepackage{xifthen}
+\usepackage{pdfpages}
+\usepackage{transparent}
+
+\newcommand{\incfig}[1]{%
+    \def\svgwidth{\columnwidth}
+    \import{./figures/}{#1.pdf_tex}
+}
+
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,      
+	urlcolor=cyan,
+	pdfpagemode=FullScreen,
+}
+\setlength{\fboxrule}{1pt}
+
+\usepackage{tikz, tikz-cd, pgfplots}
+\usetikzlibrary{positioning}
+\usetikzlibrary{calc}
+
+\newfontfamily\headingfont[]{Helvetica Bold}
+% \setmainfont{Helvetica Light}
+
+\titleformat{\chapter}
+	{\headingfont\Huge\bfseries}
+	{\thechapter}{1em}{\Huge}
+
+\titleformat{\section}
+	{\headingfont\LARGE\bfseries}
+	{\thesection}{1em}{}
+	
+\titleformat{\subsection}
+	{\headingfont\large\bfseries}
+	{\thesubsection}{1em}{}
+	
+
+% \pretitle{\begin{center}\LARGE\bfseries}
+	% \posttitle{\par\end{center}}
+% \preauthor{\begin{center}\large}
+	% \postauthor{\par\end{center}}
+% \predate{\begin{center}\large}
+	% \postdate{\par\end{center}}
+	
+\newcommand{\R}{\ensuremath{\mathbb{R}}}
+\newcommand{\Z}{\ensuremath{\mathbb{Z}}}
+\newcommand{\N}{\ensuremath{\mathbb{N}}}
+\newcommand{\K}{\ensuremath{\mathbb{K}}}
+\newcommand{\ra}{\ensuremath{\rightarrow}}
+\newcommand{\lra}{\ensuremath{\longrightarrow}}
+
+
+\renewcommand{\b}[1]{\ensuremath{\mathbf{#1}}}
+
+\newcommand{\ps}[2]{\ensuremath{\prescript{}{#1}{#2}}}
+
+
+\DeclareMathOperator{\rang}{rang\hspace{0.8pt}}
+\newcommand{\id}[1][]{\ensuremath{\mathrm{Id_{#1}}}}
+\DeclareMathOperator{\aut}{Aut}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\sym}{Sym}
+\DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\ev}{ev}
+\DeclareMathOperator{\sgn}{sgn}
+% \DeclareMathOperator{\L}{\mathcal{L}}
+
+\renewcommand{\hom}{\ensuremath{\mathrm{Hom}}}
+\renewcommand{\L}{\ensuremath{\mathcal{L}}}
+% \renewcommand{\phi}{\varphi}
+% \let\phi\varphi
+
+\newcommand{\verteq}{\rotatebox{90}{$\,=$}}
+\newcommand{\equalto}[2]{\underset{\scriptstyle\overset{\mkern4mu\verteq}{#2}}{#1}}
+
+
+\newcommand{\class}[1]{\ensuremath{\mathscr{C}^{#1}}}
+
+\DeclareMathOperator{\lenop}{\mathbf{L}}
+\newcommand{\len}[2]{\ensuremath{\lenop_{#1}^{#2}}}
+
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}%
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}%
+
+\newcommand{\deriv}[1]{\ensuremath{\frac{\mathrm{d}}{\mathrm{d}#1}}}
+\newcommand{\defeq}{\stackrel{\text{def}}{=}}
+
+
+\title{\headingfont Théorie des groupes et algèbre multilinéaire}	
+\author{Karol Gromada}
+\date{2024-2025}

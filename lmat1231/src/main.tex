@@ -1,0 +1,172 @@
+%!Tex Root = ./main.tex
+\documentclass[french]{book}
+
+\input{preamble.tex}
+\input{env.tex}
+
+\usepackage{enumerate}
+
+\begin{document}
+
+
+\begin{titlepage}
+  % \newgeometry{top=3in, bottom=1in}
+  \maketitle
+  \thispagestyle{empty}
+  \centering
+  % \vfill
+  LMAT1231	
+  % \vfill
+\end{titlepage}
+\restoregeometry
+
+\tableofcontents
+\thispagestyle{empty}
+
+\newpage
+
+
+\part{Théorie des groupes}
+\chapter{Groupes} 
+
+\section{Une étude sociologique des groupes}
+Commençons par définir la notion de groupe.
+\begin{definition}
+  Un groupe est la donnée d'un triplet $(G, *, e)$ avec $G$ un ensemble muni d'une fonction $\circ: G \times G \ra G: (g, h) \mapsto g * h$ appelée \textbf{loi de composition}, telle que :
+  \begin{enumerate}
+    \item la loi $*$ est associative, c'est-à-dire : $$\forall a, b, c \in G, a * (b * c) = (a * b) * c$$
+    \item $G$ contient un élément $e$, appelé \textbf{élément neutre}, tel que $\forall g \in G$, on ait
+      $$e * g = g = g * e$$ 
+    \item Pour tout $g \in G$, il existe $g' \in G$ tel que  $g' * g = e$
+  \end{enumerate}
+\end{definition}
+
+\begin{proposition}
+  Soit $G$ un groupe.
+  \begin{enumerate}[(i)]
+    \item L'élément neutre est unique
+    \item Pour tous $g, h \in G$, si $g * h = e$ alors $h * g = e$
+    \item Pour tout $g \in G$, l'élément $g'$ issu de la condition 3 est unique
+  \end{enumerate}
+
+  \tcblower
+  \begin{preuve}
+    Ceci est une preuve valable...
+  \end{preuve}
+\end{proposition}
+
+Le corollaire suivant est immédiat.
+\begin{corol}
+  Soit $G$ un groupe. Pour tout $g \in G$, il existe un unique élément $g' \in G$ tel que $g' * g = e = g * g'$.
+\end{corol}
+Cet élément est noté $g^{-1}$ et est appelé l'inverse de $g$.
+\par Par exemple, le singleton $G = \left\{ e \right\}$, avec la loi $e * e = e$ est un groupe. C'est le groupe \textbf{trivial}.
+\par Certains groupes ont la particularité que leur loi de composition est commutative. Définissons la notion de \textit{groupe commutatif}.
+\begin{definition}
+  Un groupe $G$ est dit \textbf{commutatif} (ou \textbf{abélien}) si pour tous $g, h \in G$, on a $g * h = h * g$.
+\end{definition}
+Il est important de garder en tête que les groupes commutatifs font figure
+d’exception. On termine cette chapter avec une dernière observation élémentaire.
+
+\begin{lemme}
+  Soit $(G, *)$ un groupe. Pour tout élément $g \in G$ et tout entier $n > 0$, on a $(g^{-1})^n = (g^n)^{-1}$.
+  \tcblower
+  \begin{preuve}
+    On procède par récurrence sur $n$. Le cas $n=1$ est trivial. Supposons que l'énonce est vrai pour $n$. Cela implique que $(g^{-1})^n * g^n = e$. On en déduit :
+    \begin{align*}
+      (g^{-1})^{n+1} * g^{n+1} &= \left( g^{-1} * (g^{-1})^n \right) * (g^n * g) \\
+                               &= g^{-1} * \left( (g^{-1})^n * g^n \right) * g \\
+                               &= g^{-1} * e * g \\
+                               &= g^{-1} * g
+                               &= e
+    \end{align*}
+    Donc $(g^{-1})^{n+1}$ est l'inverse de $g^{n+1}$.
+  \end{preuve}
+\end{lemme}
+
+\section{Groupes de permutations}
+Intéressons-nous maintenant au cas particulier de l'exemple du début de cours. Prenons $O$ un ensemble non vide, dépourvu de toute autre structure. Dans ce cas, le groupe $\aut(O)$ est constitué de toutes les permutations des points de $O$, c'est-à-dire de toutes les bijections de $O$ dans lui-même. On note ce groupe $\sym(O)$ et on l'appelle le \textbf{groupe symétrique} associe à $O$. 
+\par Dans le cas ou $O = \left\{ 1, \dots, n \right\}$, on écrit plutôt $\sym(n)$ ou $S_n$.
+\par Un élément $\sigma \in \sym(n)$ est une fonction bijective qui associe à tout entier $i \in \left\{ 1, \dots, n \right\}$ un entier $\sigma(i)$. Le neutre de $\sym(n)$ est bien sûr la permutation triviale $\id: i \mapsto i$. La loi de groupe est la composition des fonctions notée $\circ$. Dans nos notations, le symbole $\circ$ sera omis. On écrit donc $$\alpha \circ \beta = \alpha \beta$$ et on parle du \textit{produit} de $\alpha$ et $\beta$.
+\par Il est pratique de noter la permutation $\sigma$ comme suit
+$$ \sigma = \begin{pmatrix}
+  1 & 2 & \cdots & n \\
+  \sigma(1) & \sigma(2) & \cdots & \sigma(n)
+\end{pmatrix} $$
+\begin{definition}
+  On dit que $x \in O$ est un point fixe de $\sigma$ si $\sigma(x) = x$.
+\end{definition}
+Par convention, nous pouvons omettre les points fixes dans la notation matricielle d'une permutation $\sigma \in \sym(n)$. Par exemple, pour $n=7$, la permutation
+$$\sigma^{-1} = \begin{pmatrix}
+1 & 3 & 4 & 7 \\
+3 & 1 & 7 & 4
+\end{pmatrix}$$
+fixe 2, 5 et 6.
+\begin{definition}
+  Le \textbf{support} d'une permutation $\sigma$ est le complémentaire de l'ensemble de ses points fixes. On la note $\supp(\sigma)$. Deux permutations sont dites \textbf{disjointes} si leurs supports sont disjoints.
+\end{definition}
+
+\begin{proposition}
+  Deux permutations disjointes commutent. Autrement dit, si $\alpha, \beta \in \sym(O)$ sont disjointes, alors $\alpha \beta = \beta \alpha$.
+
+  \tcblower
+  \begin{preuve}
+    Soit $x \in O$ un point quelconque. Supposons d'abord que $x \in \supp(\alpha)$. Comme $\supp(\alpha)$ et $\supp(\beta)$ sont disjoints, $x \not \in \supp(\beta)$ ce qui signifie que $x$ est fixé par $\beta$. Donc $\alpha \beta(x) = \alpha(x)$.
+    \par De plus, on sait que $\alpha(x) \in \supp(\alpha)$, sinon $\alpha(x)$ serait fixé par $\alpha$, ce qui impliquerait que $\alpha \alpha(x) = \alpha(x)$ et donc que $\alpha(x) = x$ et $x \not \in \supp(\alpha)$. De manière analogue, on peut appliquer l'argument précédent et déduire que $\beta \alpha(x) = \alpha(x)$. On obtient ainsi que $\alpha \beta(x) = \alpha(x) = \beta \alpha(x)$. En échangeant $\alpha$ et $\beta$, on obtient la même conclusion dans le cas ou $x \in \supp(\beta)$.
+    \par Enfin, si $x \not \in \supp(\alpha)$ et $x \not \in \sup(\beta)$ alors $x$ est fixé à la fois par $\alpha$ et $\beta$ ce qui implique que $\alpha \beta(x) = \alpha(x) = x = \beta(x) = \beta \alpha(x)$.
+    \par Et donc, $\alpha \beta = \beta \alpha$ quelque soit $x \in  O$.
+  \end{preuve}
+\end{proposition}
+Définissons maintenant ce qu'est une permutation cyclique.
+\begin{definition}
+  Une permutation $\sigma \in \sym(O)$ est appelée un \textbf{cycle} (ou est dite \textbf{cyclique}) si pour tous $x, y \in \supp(\sigma)$, il existe $n \in \Z$ tel que $\sigma^n(x) = y$.
+  \newline Lorsque $\supp(\sigma)$ est fini de cardinal $k$, on dit que $\sigma$ est un $k$-\textbf{cycle}.
+\end{definition}
+
+\begin{remarque}
+  Si $\sigma$ est un $k$-cycle, et que $x \in \supp(\sigma)$, alors
+  $$\sigma = \begin{pmatrix}
+    x & \sigma(x) & \cdots & \sigma^{k-1}(x) \\
+    \sigma(x) & \sigma^2(x) & \cdots & x
+  \end{pmatrix}$$
+  Vu que les cycles jouent un rôle important, il convient de leur réserver la notation
+  $$\sigma = \begin{pmatrix} x & \sigma(x) & \sigma^2(x) & \cdots & \sigma^{k-1}(x) \end{pmatrix}$$
+\end{remarque}
+
+Notre prochain objectif est de montrer que dans le groupe $\sym(n)$, tout élément est un produit de cycles disjoints.
+\begin{theoreme}
+  Soit $n>0$ un entier. Pour toute permutation $\sigma \in \sym(n)$, il existe des cycles $\gamma_0, \dots, \gamma_l$ tels que:
+  \begin{enumerate}[(i)]
+    \item $\sigma = \gamma_0 \cdots \gamma_l$.
+    \item pour $i \not = j$, les cycles $\gamma_i$ et $\gamma_j$ sont disjoints.
+    \item pour tout $i$ on a $\supp(\gamma_i) \subseteq \supp(\sigma)$.
+  \end{enumerate}
+  \tcblower
+  \begin{preuve}
+    On pose $m = \abs{\supp(\sigma)}$ et on procède par récurrence sur ce $m$.
+    \newline Si $m=0$, la permutation $\sigma$ est triviale. On peut la voir comme un 0-cycle. Elle est évidemment disjointe de toute autre permutation. L'énonce est donc vrai.
+    \newline Supposons maintenant $m>0$, de sorte que $\supp(\sigma)$ est non vide. Soit $x \in \supp(\sigma)$ un point quelconque. Considérons la suite $$x, \sigma(x), \sigma^2(x), \dots$$ de points de $O = \left\{ 1, \dots, n \right\}$. Comme $O$ est fini, il doit exister des entiers $p > q \geq 0$ tels que $\sigma^p(x) = \sigma^q(x)$. En post-composant par $(\sigma^q)^{-1} = \sigma^{-q}$, on trouve que $\sigma^{p-q}(x) = x$. Soit maintenant $k \geq 0$ le plus petit entier positif ou nul tel que $\sigma^k(x)=x$. Les points de l'ensemble
+    $$O(x) = \left\{ x, \sigma(x), \dots, \sigma^{k-1}(x) \right\}$$ 
+sont deux à deux distincts et permutés cycliquement par $\sigma$. Définissons un $k$-cycle $\gamma_0$ en posant
+$$\gamma_0 = \begin{pmatrix} x & \sigma(x) & \cdots & \sigma^{k-1}(x) \end{pmatrix}$$
+Clairement, la permutation $\sigma$ préservé $O(x)$, c'est-à-dire
+$$\sigma(y) \in O(x) \text{ pour tout point } y \in O(x)$$
+et la restriction de $\sigma$ à $O(x)$ coïncide avec $\gamma_0$. Notons que
+$$\supp(\gamma_0) = O(x) \subseteq \supp(\sigma).$$
+En outre, la permutation $\gamma^{-1}_0 \sigma$ fixe chacun des points de $O(x)$. Comme $\gamma_0$ agit comme l'identité sur le complémentaire de $O(x)$, on en déduit que
+$$\supp(\sigma) = O(x) \sqcup \supp(\gamma^{-1}_0 \sigma) $$
+En particulier $\gamma_0$ est disjoint de la permutation $\gamma^{-1}_0 \sigma$. Dès lors, l'hypothèse de récurrence s'applique à $\gamma^{-1}_0 \sigma$, qui s'écrit donc comme un produit de cycles
+$$\gamma^{-1}_0 \sigma = \gamma_1 \cdots \gamma_l$$
+satisfaisant les conditions (ii) et (iii) du théorème. En multipliant l'égalité qui précède par $\gamma_0$ à gauche, on trouve $\sigma = \gamma_0 \gamma_1 \cdots \gamma_l$, ce qui prouve (i). Comme $\supp(\sigma)$ est la réunion disjointe de $O(x)$ et de $\supp(\gamma^{-1}_0 \sigma)$, les assertions (ii) et (iii) découlent de l'hypothèse de récurrence.
+  \end{preuve}
+\end{theoreme}
+
+\begin{definition}
+  Soit $\sigma \in \sym(n)$ et $\gamma_1, \dots, \gamma_l$ des cycles disjoints tels que $\sigma = \gamma_1 \cdots \gamma_l$. La représentation $\sigma = \gamma_1 \cdots \gamma_l$ est appelée \textbf{décomposition standard de $\sigma$ en un produit de cycles}. Cette écriture de $\sigma$ est unique à une permutation près de l'ordre des facteurs $\gamma_i$.
+\end{definition}
+
+\section{Transpositions et signature}
+
+\part{Algèbre multilinéaire}
+\include{./part2.tex}
+\end{document}

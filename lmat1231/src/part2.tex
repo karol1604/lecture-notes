@@ -1,0 +1,503 @@
+\let\phi\varphi
+
+\chapter{Formes linéaires}
+Soit $\mathbb{K}$ un corps, $V$ et $W$ des espaces vectoriels sur $\mathbb{K}$. On définit
+$$\hom_\K(V, W) = \left\{ A : V \ra W \mid A \text{ linéaire} \right\}$$
+Une toute première affirmation est que $\hom_\K(V, W)$ est un espace vectoriel sur $\K$. La preuve se fait très simplement. Soit $A, B \in \hom_\K(V, W)$. On définit l'addition comme
+\begin{align*}
+  A+B: V &\lra W \\
+  v &\longmapsto (A+B)(v) \defeq A(v) + B(v)
+\end{align*}
+et la multiplication par un scalaire $\lambda \in \K$ comme
+\begin{align*}
+  \lambda A: V &\lra W \\
+  v &\longmapsto (\lambda A)(v) \defeq \lambda \cdot (A(v))
+\end{align*}
+La preuve en découle trivialement.
+
+\section{Formes linéaires}
+\begin{definition}
+  Une forme linéaire sur un espace vectoriel $V$ sur $\K$ est une application linéaire $$f: V \lra \K$$
+\end{definition}
+On définit aussi le dual a $V$ qui est $V^* = \left\{ \text{formes linéaires sur } V \right\} \hom_\K(V, \K)$
+\begin{theoreme}\label{thm:dual}
+  Soit $\dim(V) = n < \infty$ et $(e_1, \dots, e_n)$ une base ordonnée de $V$. Alors l'application
+  \begin{align*}
+    \phi: V^* &\lra \K^n \\
+    f &\longmapsto \left(f(e_1), \dots, f(e_n)\right)
+  \end{align*}
+  est un isomorphisme linéaire donc $\dim(V^*) = n$.
+  \par En outre, $V^*$ possède une seule base ordonnée $(e^*_1, \dots, e^*_n)$ définie par $$e^*_i(e_j) = \delta_{ij}$$ pour tout $i, j \in \left\{ 1, \dots, n \right\}$. C'est la base duale.
+  \tcblower
+  \begin{preuve}
+    $\phi$ est linéaire, car $\forall f, g \in V^*$, $\forall \lambda, \mu \in \K$,
+    \begin{align*}
+      \phi(\lambda f + \mu g) &= \left( (\lambda f + \mu g)(e_1), \dots, \left( (\lambda f + \mu g)(e_n) \right) \right) \\
+                              &= \left( \lambda f(e_1) + \mu g(e_1), \dots, \lambda f(e_n) + \mu g(e_n) \right) \\
+                              &= \lambda \left( f(e_1), \dots, f(e_n) \right) + \mu \left( g(e_1), \dots, g(e_n) \right) \\
+                              &= \lambda \phi(f) + \mu \phi(g)
+    \end{align*}
+    De plus, $\phi$ est injective car
+    \begin{align*}
+      \ker(\phi) &= \left\{ f \in V^* \mid (f(e_1), \dots, f(e_n)) = (0, \dots, 0) \right\} \\
+                 &= \left\{ f \in V^* \mid f(v) = 0 \; \forall v \in V \right\} \\
+                 &= \left\{  0\right\}
+    \end{align*}
+    Pour vérifier la surjectivité, définissons pour tout $i \in \left\{ 1, \dots, n \right\}$ une forme linéaire $e^*_i: V \ra \K$ telle que $e^*_i(e_j) = \delta_{ij}$. Observons que
+    \begin{align*}
+      \phi(e^*_i) &= (e^*_i(e_1), \dots, e^*_i(e_i), \dots, e^*_i(e_n)) \\
+                  &= (0, \dots, 1, \dots, 0) \\
+                  &= i\text{-eme vecteur de la base canonique de } \K^n
+    \end{align*}
+    Cela implique que $\K^n$ contient une base de $\K^n$ et contient dès lors tout $\K^n$ puisque $\phi$ est linéaire. On conclut donc que $\phi$ est un isomorphisme.
+  \end{preuve}
+
+\end{theoreme}
+
+\begin{remarque}
+  Soit $V, W$ deux espaces vectoriels sur $\K$. Fixons $f \in V^*$ et $w \in W$. Définissons ensuite
+  \begin{align*}
+    B_{(f, w)}: V &\lra W \\
+    v&\longmapsto f(v)\cdot w
+  \end{align*}
+  Alors, $B_{(f,w)}$ est linéaire donc $B_{(f, w)} \in \hom_\K(V, W)$. Cette construction fourni une application
+  \begin{align*}
+    V^* \times W &\lra \hom_\K(V, W) \\
+    (f,w)& \longmapsto B_{(f, w)}
+  \end{align*}
+  Cette application est bilinéaire. Elle dépend linéairement de chacune des 2 variables.
+\end{remarque}
+
+\section{Bidual}
+Le bidual de $V$ est défini comme $V^{**} \defeq (V^*)^*$. Ses éléments sont parfois appelés des cocovecteurs.
+\par Soit $v \in V$ fixe et
+\begin{align*}
+  \ev_v: V^* &\lra \K \\
+  f&\longmapsto f(v)
+\end{align*}
+Cette application $\ev_v$ est un cocovecteur. En effet, $\forall f, g \in V^*$ et $\forall \lambda, \mu \in \K$ 
+\begin{align*}
+  \ev_v(\lambda f + \mu g) &= (\lambda f + \mu g)(v) \\
+                           &= \lambda f(v) + \mu g(v) \\
+                           &= \lambda \ev_v(f) + \mu \ev_v(g)
+\end{align*}
+\begin{remarque}
+  Tout vecteur est un cocovecteur.
+\end{remarque}
+
+\begin{theoreme}[Bidual]
+  \begin{enumerate}[(i)]
+    \item L'application $V \ra V^{**} : v \mapsto \ev_v$ est linéaire et injective.
+    \item Si $\dim(V) = n < \infty$ alors, elle est aussi surjective (et donc c'est un isomorphisme).
+  \end{enumerate}
+
+  \tcblower
+  \begin{preuve}
+    (i) Soient $v,w \in V$, $\lambda, \mu \in \K$ et $f \in V^*$. On a
+    \begin{align*}
+      \ev_{\lambda v + \mu g}(f) &= f(\lambda v + \mu w) \\
+                                 &= \lambda f(v) + \mu f(w) \\
+                                 &= \lambda\ev_v(f) + \mu\ev_w(f) \\
+                                 &= (\lambda\ev_v + \mu\ev_w)(f)
+    \end{align*}
+    Donc $v\mapsto \ev_v$ est linéaire.
+    \par Supposons $v \in V \setminus \{ 0 \}$. On peut alors choisir une base $Q$ de $V$ qui contient $v$. Il existe alors un seul unique $f \in V^*$ tel que $f(v) = 1$ et  $f(w) = 0$ pour tout  $w \in Q \setminus \left\{ v \right\}$. Donc
+    $$\ev_v(f) = 1 \not = 0 \implies \ev_v \not = 0 \implies v \not \in \ker(\ev)$$
+    Donc $\ker(\ev) = \left\{ 0 \right\}$ et $\ev$ est injective.
+    \par (ii) Par le théorème \ref{thm:dual} on sait que $\dim(V^*) = n$. De manière analogue, $\dim(V^{**}) = \dim(V^*) = n$. Par le théorème du rang, elle est aussi surjective.
+  \end{preuve}
+\end{theoreme}
+
+\section{Transposée}
+Considérons maintenant deux espaces vectoriels $V,W $ sur  $\K$ et une application $A \in \hom_\K(V, W)$.
+\begin{definition}
+  L'application
+  \begin{align*}
+    A^\top : W^* &\lra V^* \\
+    f&\longmapsto f \circ A
+  \end{align*}
+  est appelée la transposée de $A$.
+\end{definition}
+
+\begin{theoreme}
+  Soit $A \in \hom_\K(V, W)$.
+  \begin{enumerate}[(i)]
+    \item La transposée $A^\top: W^* \ra V^*$ est linéaire.
+    \item $\forall B \in \hom_\K(V, W)$ on a $(A+B)^\top = A^\top + B^\top$.
+    \item $\forall B \in \hom_\K(U, V)$ on a $(A\circ B)^\top = B^\top \circ A^\top$. 
+    \item Si $\dim(V), \dim(W) < \infty$ alors $A$ est bijective si et seulement si  $A^\top$ l'est et $(A^{-1})^\top = (A^\top)^{-1}$.
+  \end{enumerate}
+
+  \tcblower
+  \begin{preuve}
+    (i) Soient $\phi, \psi \in W^*$ des formes linéaires et $\lambda, \mu \in \K$ des scalaires. On a
+    \begin{align*}
+      A^\top(\lambda\phi + \mu\psi) &= (\lambda\phi + \mu\psi) \circ A \\
+                                    &= \lambda\phi\circ A + \mu\psi\circ A \\
+                                    &= \lambda A^\top(\phi) + \mu A^\top(\psi)
+    \end{align*}
+    ce qui confirme que $A^\top$ est linéaire.
+    \par (ii) Soit $\phi \in W^*$. On a
+    \begin{align*}
+      (A+B)^\top(\phi) &= \phi \circ (A+B) \\
+                       &= \phi\circ A + \phi\circ B \\
+                       &= A^\top(\phi) + B^\top(\phi) \\
+                       &= (A^\top + B^\top)(\phi)
+    \end{align*}
+    \par (iii) Soit $\phi \in W^*$. On a
+    \begin{align*}
+      (A\circ B)^\top(\phi) &= \phi \circ (A \circ B) \\
+                            &= (\phi \circ A) \circ B \\
+                            &= A^\top(\phi)\circ B \\
+                            &= B^\top\left(A^\top(\phi)\right) \\
+                            &= (B^\top \circ A^\top)(\phi)
+    \end{align*}
+    \par (iv) Remarquons d'abord que si $\id: V \ra V : v \mapsto v$ est l'application identique alors  $\id^\top$ est l'application identique sur  $V^*$. En effet, pour toute forme linéaire  $\phi \in V^*$, on a $\id^\top(\phi) = \phi \circ \id = \phi$. Si maintenant $A: V \ra W$ est inversible, elle admet un inverse $A^{-1}$ et on a $\id = A^{-1}\circ A$ ce qui implique que $\id^\top = A^\top \circ (A^{-1})^\top$ par le point (iii). Cela confirme que $A^\top$ est inversible et que son inverse est $(A^{-1})^\top$. La réciproque s'établit de manière analogue.
+  \end{preuve}
+\end{theoreme}
+
+\let\cleardoublepage\clearpage
+\chapter{Application multilinéaire et produit tensoriel}
+\section{Application bilinéaire}
+
+\begin{definition}
+  Soit $V_1, V_2, W$ des espaces vectoriels sur $\K$. Une application $f: V_1 \times V_2 \ra W$ est bilinéaire si elle est linéaire en chacune de ses coordonnés. C'est-à-dire que $\forall v_2 \in V_2$ fixé, $V_1 \ra W : x \mapsto f(x, v_2)$ est linéaire et $\forall v_1\in V_1$ fixé, $V_2\ra W : y \mapsto f(v_1, y)$ est linéaire.
+\end{definition}
+Donnons quelques exemples d'applications bilinéaires.
+\par \textbf{Exemple 1:} Soit $\K = \R$,  $V_1 = V_2 = \R^n$, $W = \R$ alors le produit scalaire
+\begin{align*}
+  (\cdot, \cdot): \R^n \times \R^n &\lra \R \\
+  \left( \vv{x} = \begin{pmatrix}x_1 \\ \vdots \\ x_n\end{pmatrix}, \vv{y} = \begin{pmatrix}y_1 \\ \vdots \\ y_n\end{pmatrix} \right)&\longmapsto \vv{x} \cdot \vv{y} \defeq \sum_{i=1}^n x_iy_i
+\end{align*}
+est une application (et même forme !) bilinéaire. Il y a plus d'exemples, mais flm d'écrire.
+\par Introduisons la notation suivante.
+$$\L(V_1, V_2; W) = \left\{ \text{application bilinéaire de } V_1 \times V_2 \text{ dans } W \right\}$$
+\par \textbf{Affirmation:} $\L(V_1, V_2; E)$ est un espace vectoriel sur $\K$. La preuve se fait tres simplement a partir des définitions suivantes. Soit $f, g \in \L(V_1, V_2, W)$, on pose
+\begin{gather*}
+  (f+g)(v_1, v_2) = f(v_1, v_2) + g(v_1, v_2) \\
+  (\lambda f)(v_1, v_2) = \lambda f(v_1, v_2)
+\end{gather*}
+On se pose donc la question naturelle quelle est la dimension de $\L(V_1, V_2; W)$? Fixons $(e_1, \dots, e_n)$ une base de  $V_1$ et $(d_1, \dots, d_m)$ une base de $V_2$. Tout $\phi \in \L(V_1, V_2; W)$ est déterminé par $\phi(e_i, d_j) = w_{ij} \in  W$. Soit $v_1 \in V_1$ et $v_2\in V_2$. On peut réécrire ces 2 vecteurs comme
+$$v_1 = \sum_{i=1}^n \lambda_i e_i \quad (\lambda_i \in \K) \; \text{ et } \; v_2 = \sum_{j=1}^m \mu_j d_j \quad (\mu_j \in \K)$$
+On a
+\begin{align*}
+  \phi(v_1, v_2) &= \phi\left( \sum_{i} \lambda_i e_i, \sum_j \mu_j d_j \right) \\
+                 &= \sum_{i, j} \lambda_i \mu_j \phi(e_i, d_j) \\
+                 &= \sum_{i, j} \lambda_i \mu_j w_{ij}
+\end{align*}
+Pour l'inverse, choisissons $n\cdot m$ vecteurs de $W$, disons $x_{ij} \in W$ avec $i \in \left\{ 1, \dots, n \right\}$, $j \in \left\{ 1, \dots, m \right\}$ alors $\exists ! \psi \in \L(V_1, V_2; W)$ tel que $\psi(e_i, d_j) = x_{ij}$. En effet, on peut poser
+$$\psi\left( \underbrace{\sum \lambda_i e_i}_{v_1}, \underbrace{\sum \mu_j d_j}_{v_2} \right) \defeq \sum_{i,j} \lambda_i \mu_j x_{ij}$$
+On voit ainsi que les éléments de l'espace auquel on est intéressé sont déterminés par $n\cdot m$ vecteurs de $W$ qui lui-même est un espace dont là d'immersion est, disons $l$. On conclut donc que
+$$\dim\left( \L(V_1, V_2; W)\right) = n\cdot m \cdot l$$
+
+\section{Application bilinéaire universelle}
+Soit $V_1, V_2, U$ des espaces vectoriels sur $\K$.
+\begin{definition}
+  Une application $\phi \in \L(V_1, V_2; U)$ est appelée universelle si pour tout espace vectoriel $W$ sur $\K$ et $\forall h \in \L(V_1, V_2; W)$, $\exists! \tilde{h}: U \ra W$ linéaire telle que $\forall (v_1, v_2) \in V_1 \times V_2$ on a $h(v_1, v_2) = \tilde{h}(\phi(v_1, v_2))$.
+
+
+\end{definition}
+\begin{figure}[h]
+  \centering
+  \begin{tikzcd}
+    {V_1 \times V_2} && U \\
+                     && {\quad\quad\exists! \tilde{h}} \\
+                     && W
+                     \arrow["\varphi", from=1-1, to=1-3]
+                     \arrow["h"', from=1-1, to=3-3]
+                     \arrow[dashed, from=1-3, to=3-3]
+  \end{tikzcd}
+\end{figure}
+
+\begin{theoreme}
+  Il existe un espace vectoriel $U$ sur $\K$ ou $\phi \in \L(V_1, V_2; U)$ est universelle.
+
+  \tcblower
+  \begin{preuve}
+    On va voir qu'on peut poser
+    $$U = \L(V_1^*, V_2^*; \K)$$
+    On doit construire
+    \begin{align*}
+      \phi: V_1 \times V_2 &\lra U \\
+      (v_1, v_2) &\longmapsto \phi(v_1, v_2) : V_1^* \times V_2^* \lra \K
+    \end{align*}
+    On pose
+    \begin{align*}
+      \phi(v_1, v_2): V_1^* \times V_2^* &\lra \K \\
+      (f_1, f_2) &\longmapsto f_1(v_1) \cdot f_2(v_2)
+    \end{align*}
+    \textbf{(Affirmation 1)} $\forall (v_1,v_2) \in V_1 \times V_2$, on a $\phi(v_1, v_2) \in U$.
+    \par Autrement dit, le scalaire $\phi(v_1, v_2)(f_1, f_2) \in \K$ dépend linéairement de $f_1$ et $f_2$. Fixons $f_2 \in V_2^*$. Soit $\lambda, \lambda' \in \K$ et $g, g' \in V_1^*$. Alors on a
+    \begin{align*}
+      \phi(v_1,v_2)(\lambda g + \lambda' g', f_2) &= (\lambda g + \lambda' g')(v_1)\cdot f_2(v_2) \\
+                                                  &= (\lambda g(v_1) + \lambda' g'(v_1)) \cdot f_2(v_2) \\
+                                                  &= \lambda g(v_1)f_2(v_2) + \lambda' g'(v_1)f_2(v_2) \\
+                                                  &= \lambda \phi(v_1,v_2)(g, f_2) + \lambda' \phi(v_1, v_2)(g', f_2)
+    \end{align*}
+    L'argument pour la linéarité par rapport à $f_2$ est analogue.
+    \par \textbf{(Affirmation 2)} L'application
+    \begin{align*}
+      \phi: V_1 \times V_2 &\lra U \\
+      (v_1, v_2) &\longmapsto \phi(v_1, v_2)
+    \end{align*}
+    est bilinéaire.
+    \par Fixons $v_2 \in V_2$. Soit $\lambda, \mu \in \K$ et $x, y \in V_1$ et $(f_1, f_2) \in V_1^* \times V_2^*$. On a
+    \begin{align*}
+      \phi(\lambda x + \mu y, v_2)(f_1, f_2) &= f_1(\lambda x + \mu y) f_2(v_2) \\
+                                             &= (\lambda f_1(x) + \mu f_1(y)) f_2(v_2) \\
+                                             &= \lambda f_1(x)f_2(v_2) + \mu f_1(y)f_2(v_2) \\
+                                             &= \lambda \phi(x, v_2)(f_1, f_2) + \mu \phi(y, v_2)(f_1,f_2) \\
+                                             &= \left( \lambda\phi(x,v_2) + \mu\phi(y, v_2) \right)(f_1,f_2)
+    \end{align*}
+
+    Il reste à vérifier que $\phi$ est universelle. Pour démontrer ceci, construisons d'abord une base de $U$. Choisissons  $(e_1, \dots, e_n)$ et $(d_1, \dots, d_m)$ des bases ordonnées de $V_1$ et $V_2$.
+    \par \textbf{(Affirmation 3)} L'ensemble $\left\{ \phi(e_i, d_j) \mid i \in \{1, \dots, n \}, j\in \{ 1, \dots, m\} \right\} \subseteq U$ est une base de $U$.
+    \par Cet ensemble est linéairement indépendant. En effet, soit $\lambda_{ij} \in \K$ un choix de $nm$ scalaires tels que $$\sum_{i,j} \lambda_{ij} \phi(e_i, d_j) = 0.$$
+    L'égalité implique que $\forall (f_1,f_2) \in V_1^* \times V_2^*$ on a
+    $$\sum_{i,j} \lambda_{ij} \phi(e_i, d_j)(f_1,f_2) = 0$$
+    Prenons le cas particulier ou $f_1 = e^*_s$ et $f_2 = d^*_t$. Alors on a
+    $$0 = \sum_{i,j} \lambda_{ij} \phi(e_i, d_j)(e^*_s, d^*_t) = \sum_{i,j} \lambda_{ij} \underbrace{e^*_s(e_i)}_{\delta_{si}}\underbrace{d^*_t(d_j)}_{\delta_{tj}} = \lambda_{st}$$
+    Montrons que les $\phi(e_i, d_j)$ formes une famille génératrice. Il y a $nm$ vecteurs dans cet ensemble. On observe que
+    \begin{align*}
+      \dim(U) &= \dim(\L(V_1,V_2;\K)) \\
+              &= \dim(V_1^*)\dim(V_2^*) \\
+              &= \dim(V_1)\dim(V_2) \\
+              &= nm
+    \end{align*}
+    On doit dès lors montrer encore que $\phi$ est universelle. Soit $W$ un espace vectoriel sur $\K$ et $h \in \L(V_1,V_2; W)$ donnés. On veut montrer que $\exists! \tilde{h}: U \ra W$ linéaire tel que
+    \begin{equation}\label{eq:univ}
+      h = \tilde{h} \circ \phi \tag{$*$}
+    \end{equation}
+    On sait que les $\phi(e_i, d_j)$ forment une base de $U$. De plus,
+    \begin{equation}\label{eq:univ_2}
+      \tilde{h}(\phi(e_i, d_j)) = h(e_i, d_j) \tag{$**$}
+    \end{equation}
+    est nécessaire pour que \eqref{eq:univ} soit vraie. L'existence et l'unicité sont donc vérifiées. Il reste a verifier que \eqref{eq:univ} est vraie pour tous les points du domaine.
+    \par Soit $(v_1,v_2) \in V_1\times V_2$, $v_1=\sum_i \lambda_i e_i$ et $v_2=\sum_j \mu_j d_j$ avec $\lambda_i, \mu_j \in \K$. Alors, on a
+    \begin{align*}
+      \tilde{h} \circ \phi(v_1,v_2) &= \tilde{h}\left( \phi\left( \sum_i \lambda_i e_i, \sum_j \mu_j d_j \right) \right) \\
+                                    &= \tilde{h}\left( \sum_{i,j} \lambda_i \mu_j \phi(e_i, d_j) \right) \\
+                                    &= \sum_{i, j} \lambda_i \mu_j \tilde{h}(\phi(e_i, d_j)) \\
+                                    &= \sum_{i, j} \lambda_i \mu_j h(e_i, d_j) \\
+                                    &= h\left( \sum_i \lambda_i e_i, \sum_j \mu_j d_j \right) \\
+                                    &= h(v_1,v_2)
+    \end{align*}
+    donc \eqref{eq:univ} est vérifiée.
+  \end{preuve}
+\end{theoreme}
+
+Introduisons une notation.
+\begin{notation}
+  $U = V_1 \otimes V_2$ est le produit tensoriel de $V_1$ et $V_2$ et $\phi(v_1, v_2) = v_1 \otimes v_2$ est le produit tensoriel de $v_1$ et $v_2$.
+\end{notation}
+Le produit tensoriel des vecteurs $v_1$ et $v_2$ est donc l'application bilinéaire universelle
+\begin{align*}
+  \otimes: V_1 \times V_2 &\lra U \\
+  (v_1,v_2)&\longmapsto v_1 \otimes v_2
+\end{align*}
+Le tenseur élémentaire $v_1\otimes v_2$ est aussi une forme bilinéaire sur $V_1^* \times V_2^*$
+$$v_1\otimes v_2(f_1,f_2) = f_1(v_1)f_2(v_2)$$
+
+\begin{theoreme}
+  Le produit tensoriel
+  \begin{align*}
+    \otimes : V_1 \times V_2 &\lra U = V_1\otimes V_2 \\
+    (v_1, v_2)&\longmapsto v_1\otimes v_2
+  \end{align*}
+  est univoquement déterminé (à isomorphisme près) par la propriété universelle.
+\end{theoreme}
+
+\begin{remarque}
+  Attention. Une erreur courante est de penser que l'égalité
+  $$V_1\otimes V_2 = \left\{ v_1 \otimes v_2 \mid v_1 \in V_1, v_2\in V_2 \right\}$$
+  est vraie. Ce n'est \textbf{pas} le cas !
+  \par Autrement dit, $\phi: V_1 \times V_2 \ra U$ n'est pas surjective. Par contre, $V_1\otimes V_2$ contient une base $\left\{ e_i\otimes d_j : i \in \{ 1, \dots, n\}, j \in \{ 1, \dots, m\} \right\}$
+\end{remarque}
+
+Soit
+\begin{align*}
+  -\otimes -: V_1^* \times V_2^* &\lra V_1^*\otimes V_2^* \\
+  (f_1, f_2)&=\longmapsto f_1\otimes f_2
+\end{align*}
+l'application bilinéaire universelle sur $V_1^* \times V_2^*$. En outre, $V_1^* \otimes V_2^*$ s'identifie a $\L(V_1^{**}, V_2^{**}; \K) = \L(V_1, V_2l \K)$.
+\par Soit $(f_1,f_2) \in V_1^* \times V_2^*$ et
+\begin{align*}
+  f_1\otimes f_2: V_1\times V_2 &\lra \K \\
+  (v_1,v_2)&\longmapsto f_1(v_1)f_2(v_2)
+\end{align*}
+A titre d'exemple, disons que $V_1=V_2=\R^n$ et $(e_1, \dots, e_n)$ est la base canonique. Comment construire une forme bilinéaire sur $\R^n$? On vient de voir que le produit tensoriel de 2 formes linéaires est une forme bilinéaire.
+\par Donc par exemple, prenons l'application
+\begin{align*}
+  e_3^* \otimes e_4^*: \R^n \times \R^n &\lra \R \\
+  \left( \begin{pmatrix} x_1 \\ \vdots \\ x_n \end{pmatrix}, \begin{pmatrix} y_1 \\ \vdots \\ y_n \end{pmatrix}  \right)&\longmapsto x_3\cdot y_4
+\end{align*}
+Pour un autre exemple, le produit scalaire usuel sur $\R^n$ est $\vv{x}\cdot \vv{y} = \sum_{i=1}^n x_iy_i$. On peut l'ecrire comme
+$$\begin{pmatrix} x_1 \\ \vdots \\ x_n \end{pmatrix} \cdot \begin{pmatrix} y_1 \\ \vdots \\ y_n \end{pmatrix} = \left( \sum_{i=1}^n e_i^* \otimes e_i^* \right)\left( \begin{pmatrix} x_1 \\ \vdots \\ x_n \end{pmatrix} , \begin{pmatrix} y_1 \\ \vdots \\ y_n \end{pmatrix}  \right) $$ 
+
+\chapter{Application multilinéaire et algèbre tensorielle}
+Commençons par définir ce qu'est une application $l$-linéaire.
+\begin{definition}
+  Soit $l\geq 1$ un entier et $V_1, \dots, V_l, W$ des espaces vectoriels sur $\K$.  Une application $l$-linéaire est une fonction $$f: V_1 \times \cdots \times V_l \lra W$$
+  qu'est linéaire sur chacune des coordonnés. Si $W = \K$ on parle de forme $l$-linéaire.
+\end{definition}
+
+Soit $l, l', l'' \geq 1$ des entiers, $f\in \L(V_1, \dots, V_l; \K), g\in \L(V_1', \dots, V_{l'}'; \K)$ et $h\in \L(V_1'', \dots, V_{l''}''; \K)$ des formes multilinéaires. Alors
+\begin{align*}
+  f\otimes g: V_1\times \cdots V_l\times V_1'\times \cdots V_{l'}' &\lra \K \\
+  (v_1, \dots, v_l, v_1', \dots, v_{l'}')&\longmapsto f(v_1,\dots,v_l)g(v_1', \dots, v_{l'}')
+\end{align*}
+est une forme $(l+l')$-linéaire. De plus, on a 
+$$(f\otimes g)\otimes h = f \otimes (g \otimes h)$$
+Ensuite, soit  $f_1, \dots, f_l$ des formes linéaires sur $V_1, \dots, V_l$ respectivement, c'est-à-dire $f_i \in V_i^*$. Alors $f_1 \otimes \cdots \otimes f_l \in \L(V_1, \dots, V_l; \K)$. En outre,
+$$\dim(\L(V_1, \dots, V_l; \K)) = \dim(V_1)\cdot\dim(V_2)\cdots \dim(V_l)$$
+Une base de cet espace est donnée par
+$$\left\{ e_{1,i_1}^* \otimes \cdots \otimes e^*_{l, i_l}  \mid 1 \leq i_1 \leq \dim(V_1), \dots, 1 \leq i_l \leq \dim(V_l)\right\}$$
+ou $\left\{ e^*_{j, i_j} \mid 1 \leq j \leq \dim(v_j) \right\}$ est une base duale à une base de $V_j$. Enfin, on a un isomorphisme linéaire $V_1^*\otimes \cdots \otimes V_l^* \cong \L(V_1, \dots, V_l; \K)$. Un cas particulier important de cela est quand on prend $V$ ou $V^*$ comme espace vectoriel considérés.
+
+\begin{definition}
+  Un tenseur d'espèce $p \choose q$ sur $V$ est une forme $(p+q)$-linéaire
+  $$T: \underbrace{V^*\times\cdots\times V^*}_\text{$p$ fois} \times \underbrace{V\times\cdots\times V}_\text{$q$ fois} \lra \K$$
+  On note  $T^p_q(V)$ l'espace des tenseurs d'espèce  $p \choose q$. On dit aussi que $T$ est $p$-fois covariant et $q$-fois contravariant.
+\end{definition}
+On donne quelques cas particuliers.
+\par $T_0^1(V) = \hom_\K(V^*, \K) = V^{**} \cong V$ qui est l'espace des cocovecteurs.
+\par  $T_1^0(V) = \hom_\K(V, \K) = V^*$ qui est l'espace des covecteurs.
+\par $T_2^0(V) = \L(V, V; \K)$ qui est l'espace des formes bilinéaires sur  $V$.
+\begin{align*}
+  T^p_q(V) &= \L(\underbrace{V^*, \dots, V^*}_p, \underbrace{V, \dots, V}_q; \K) \\
+           &\cong V\otimes \cdots\otimes V \otimes V^*\otimes \cdots \otimes V^*
+\end{align*}
+et aussi $\dim(T_q^p(V)) = (\dim(V))^{p+q}$
+\par On obtient une base de  $T_q^p(V)$ en fixant une base  $(e_1, \dots, e_n)$ de $V$ et en considérant $\left\{ e_{i_1}\otimes \cdots \otimes e_{i_p}\otimes e_{j_i}^*\otimes \cdots \otimes e_{j_q}^* \right\}$
+
+\chapter{Produit extérieur}
+\section{Application symétrique, anti-symétrique et alternée}
+
+\begin{definition}
+  Soit $f: V^l \ra W$ une application $l$-linéaire. $f$ est \textbf{symétrique} si $\forall \sigma \in \sym(l)$, $\forall (v_1,\dots, v_l) \in V^l$ on a $$f(v_{\sigma(1)}, \dots, v_{\sigma(l)}) = f(v_1, \dots, v_l).$$
+  $f$ est \textbf{anti-symétrique} si $\forall \sigma \in \sym(l)$, $\forall (v_1, \dots, v_l) \in V^l$ on a $$f(v_{\sigma(1)}, \dots, v_{\sigma(l)}) = \sgn(\sigma)f(v_1, \dots, v_l).$$
+  $f$ est \textbf{alternée} si $\forall (v_1, \dots, v_l) \in V^l$, $\exists i, j \in \left\{ 1, \dots, l \right\}$ avec $i \not = j$ tel que si $v_i = v_j$ alors $f(v_1, \dots, v_l) = 0$.
+\end{definition}
+
+\begin{proposition}
+  Toute application $l$-linéaire $f: V^l \ra W$ alternée est automatiquement anti-symétrique.
+  \tcblower
+  \begin{preuve}
+    Commençons par prouver le cas $l=2$. Soit $x, y \in V$. Vu que par hypothèse $f$ est alternée, on a
+    $$f(x-y, x-y) = 0$$
+    $f$ est 2-linéaire donc on peut écrire
+    $$0 = f(x, x) - f(y, x) - f(x, y) + f(y, y)$$
+    qui donne l'égalité
+    $$f(x, y) = -f(y, x)$$
+    Traitons ensuite le cas $l \geq 2$. Soit  $(v_1, \dots, v_l) \in V^l$ et, soit $\sigma \in \sym(l)$. Si $\sigma$ est une transposition, disons $\sigma = (i \; j)$, on observe que
+    \begin{align*}
+      v_{\sigma(h)} &= v_h \\
+      v_{\sigma(i)} &= v_j  & \forall h \in \{ 1, \dots, l\} \setminus \{i, j \} \\
+      v_{\sigma(j)} &= v_i
+    \end{align*}
+    Donc tous les $v_h$ ou $h \not = i, j$ sont fixes. Par le cas $l=2$, on déduit que si $\sigma$ est une transposition alors $f(v_{\sigma(1)}, \dots, f_{\sigma(l)}) = -f(v_1, \dots, v_l)$.
+    \par En général, $\sigma$ est un produit de transpositions, disons
+    \begin{align*}
+      \sigma &= \tau_1 \cdots \tau_n \\
+      \gamma &= \tau_1 \cdots \tau_{n-1} \\
+      \tau &= \tau_n = (i \; j)
+    \end{align*}
+    On a
+    \begin{align*}
+      f(v_{\sigma(1)}, \dots, v_{\sigma(l)}) &= f(v_{\gamma\tau(1)}, \dots, v_{\gamma\tau(l)}) \\
+                                             &= f(v_{\gamma(1)}, \dots, v_{\gamma(j)}, \dots, v_{\gamma(i)}, \dots, v_{\gamma(l)}) \\
+                                             &= -f(v_{\gamma(1)}, \dots, v_{\gamma(i)}, \dots, v_{\gamma(j)}, \dots, v_{\gamma(l)}) \\
+                                             &= (-1)(-1)^{n-1}f(v_1, \dots, v_l) \\
+                                             &= (-1)^n f(v_1, \dots, v_l) \\
+                                             &= \sgn(\sigma)f(v_1, \dots, v_l)
+    \end{align*}
+  \end{preuve}
+\end{proposition}
+
+Il est évident que toute fonction $f: \R \ra \R$ est la somme d'une fonction paire et impaire. En effet,
+ $$f(x) = \frac{1}{2}(f(x) + f(-x)) + \frac{1}{2}(f(x) - f(-x))$$
+ De manière analogue, toute forme bilinéaire sur $\R^n$ est la somme d'une forme bilinéaire symétrique et anti-symétrique. En effet, soit
+ \begin{align*}
+   f: \R^n \times \R^n &\lra \R \\
+   (x, y)&\longmapsto f(x, y)
+\end{align*}
+alors, on peut écrire
+$$f(x, y) = \frac{1}{2}(f(x, y) + f(y, x)) + \frac{1}{2}(f(x, y) - f(y, x))$$
+
+\section{Produit extérieur}
+\begin{definition}
+  Soit $f: V^l \ra W$ une application $l$-linéaire.
+  \par La \textbf{symétrisée} de $f$ est
+  $$S(f): (v_1, \dots, v_l) \mapsto \sum_{\sigma \in \sym(l)} f(v_{\sigma(1)}, \dots, v_{\sigma(l)})$$
+  L'\textbf{anti-symétrisée} de $f$ est
+  $$A(f): (v_1, \dots, v_l) \mapsto \sum_{\sigma \in \sym(l)} \sgn(\sigma) f(v_{\sigma(1)}, \dots, v_{\sigma(l)})$$
+\end{definition}
+
+\begin{theoreme}
+  \begin{enumerate}
+    \item $S(f): V^l \ra W$ est $l$-linéaire et symétrique.
+    \item $A(f): V^l \ra W$ est $l$-linéaire et alternée (et donc aussi anti-symétrique).
+  \end{enumerate}
+
+  \tcblower
+  \begin{preuve}
+    $S(f)$ et $A(f)$ sont $l$-linéaire, car elles sont définies comme combinaisons linéaires de $l!$ formes $l$-linéaire. Tritons maintenant la seconde partie du théorème.
+    \par (1) Soit $\gamma \in \sym(l)$ et $(v_1, \dots, v_l) \in V^l$. On a
+    \begin{align*}
+      S(f)(v_{\gamma(1)}, \dots, v_{\gamma(l)}) &= \sum_{\sigma \in \sym(l)} f(v_{\gamma\sigma(1)}, \dots, v_{\gamma\sigma(l)}) \\
+                                                &= \sum_{\sigma' \in \sym(l)} f(v_{\sigma'(1)}, \dots, v_{\sigma'(l)}) \\
+                                                &= S(f)(v_1, \dots, v_l)
+    \end{align*}
+    Donc le caractère symétrique de $S(f)$ est vérifié.
+    \par Ensuite, soit $(v_1, \dots, v_l) \in V^l$. On doit vérifier que si $\exists i < j$ tel que $v_i = v_j$ alors $A(f)(v_1, \dots, v_l) = 0$. Posons 
+    $$E = \left\{ \sigma \in \sym(l) \mid \sigma^{-1}(i) < \sigma^{-1}(j) \right\}$$
+    et
+    $$E' = \left\{ \sigma \in \sym(l) \mid \sigma^{-1}(i) > \sigma^{-1}(j) \right\}$$
+    Par définition, $\sym(l) = E \sqcup E'$.
+    \begin{align*}
+      A(f)(v_1, \dots, v_l) &= \sum_{\sigma \in \sym(l)} \sgn(\sigma)f(v_{\sigma(1)}, \dots, v_{\sigma(l)}) \\
+                            &= \underset{\defeq T}{\sum_{\sigma \in E} \sgn(\sigma)f(v_{\sigma(1)}, \dots, v_{\sigma(l)})} + \underset{\defeq T'}{\sum_{\sigma \in E'} \sgn(\sigma)f(v_{\sigma(1)}, \dots, v_{\sigma(l)})}
+    \end{align*}
+    Notre but est dès lors de montrer que $T' = -T$.
+    \par Observons que $E$ et $E'$ sont en bijection. Posons $\tau = (i \; j)$. On a
+     \begin{align*}
+       \sigma \in E &\iff \sigma^{-1}(i) < \sigma^{-1}(j) \\
+                    &\iff \sigma^{-1}\tau(j) < \sigma^{-1}\tau(i) \\
+                    &\iff \sigma^{-1}\tau^{-1}(j) < \sigma^{-1}\tau^{-1}(i) \\
+                    &\iff (\tau\sigma)^{-1}(j) < (\tau\sigma)^{-1}(i) \\
+                    &\iff (\tau\sigma)^{-1}(i) > (\tau\sigma)^{-1}(j) \\
+                    &\iff \tau\sigma \in E'
+    \end{align*}
+    L'application $\sigma \mapsto \tau\sigma$ établi donc une bijection de $E$ vers $E'$.
+    \par Par notre hypothèse de début, $v_i = v_j$ donc  $\forall k \in \left\{ 1, \dots, l \right\}$, on a
+    $$v_{\tau(k)} = \begin{cases}
+      v_k & \text{ si } k \not = i, j \\
+      v_j = v_i & \text{ si } k = i \\
+      v_i = v_j & \text{ si } k=j
+    \end{cases}$$
+    On voit donc que $v_{\tau(k)} = v_k$ pour tout  $k \in \left\{ 1, \dots, l \right\}$. On a
+    \begin{align*}
+      T' &= \sum_{\sigma' \in E'} \sgn(\sigma')f(v_{\sigma'(1)}, \dots, v_{\sigma'(l)}) \\
+         &= \sum_{\sigma \in E} \sgn(\tau\sigma)f(v_{\tau\sigma(1)}, \dots, v_{\tau\sigma(l)}) \\
+         &= -\sum_{\sigma \in E} \sgn(\sigma)f(v_{\sigma(1)}, \dots, v_{\sigma(l)})  \\
+         &= -T
+    \end{align*}
+  \end{preuve}
+\end{theoreme}
+
+\begin{definition}
+  Le produit extérieur de $l$ formes linéaires $f_1, \dots, f_l \in V^*$ est défini par
+  $$f_1 \wedge f_2 \wedge \cdots \wedge f_l = A(f_1\otimes f_2 \otimes \cdots \otimes f_l.$$
+\end{definition}
+Pour un exemple de ce concept, prenons $V = \R^2 =\R^{2\times 1}$. On prend
+ $$e_1^* \wedge e_2^* \in \L(\R^2, \R^2; \R)$$
+ Par définition, on a
+ \begin{align*}
+   e_1^*\wedge e_2^* \left( \begin{pmatrix} x_1 \\ x_2\end{pmatrix}, \begin{pmatrix} y_1 \\ y_2\end{pmatrix} \right) &= A(e_1^* \otimes e_2^*)\left( \begin{pmatrix} x_1 \\ x_2\end{pmatrix}, \begin{pmatrix} y_1 \\ y_2\end{pmatrix} \right) \\
+                                                                                                                      &= e_1^* \otimes e_2^* \left( \begin{pmatrix} x_1 \\ x_2\end{pmatrix}, \begin{pmatrix} y_1 \\ y_2\end{pmatrix} \right) - e_1^* \otimes e_2^* \left( \begin{pmatrix} y_1 \\ y_2\end{pmatrix}, \begin{pmatrix} x_1 \\ x_2\end{pmatrix} \right) \\
+                                                                                                                      &= x_1y_2 - y_1x_2 \\
+                                                                                                                      &= \det \begin{pmatrix} x_1 & y_1 \\ x_2 & y_2 \end{pmatrix}
+ \end{align*}
+
+
+
