@@ -788,7 +788,7 @@ Le théorème \ref{thm:comp} nous donne une propriété agréable pour la topolo
     \par 2. Comme $\tau_1 \supseteq \tau_2$ et $\tau_2$ est Hausdorff, $\forall x, y \in X, \exists U, V \in \tau_2$ tels que $x \in U, y \in V$ et $U \cap V = \varnothing$. Comme $\id$ est continue
     $$\id^{-1}(U \in \tau_2) = U \in \tau_1 \; \text{ et } \; \id^{-1}(V \in \tau_2) = V \in \tau_1.$$
     On a donc que $x\in U, y \in V$ et $U \cap V = \varnothing$ avec $U, V \in \tau_1$ ce qui implique que $(X, \tau_1)$ est Hausdorff.
-    \par 3. Comme $\tau_1 \supseteq \tau_2$, l'application $\id: (X, \tau_1) \ra (X, \tau_2)$ est continue. Par le theoreme \ref{thm:hom} on sait aussi que $\id$ est un homéomorphisme donc $\id^{-1}: (X, \tau_2) \ra (X, \tau_1)$ est continue. Ainsi,
+    \par 3. Comme $\tau_1 \supseteq \tau_2$, l'application $\id: (X, \tau_1) \ra (X, \tau_2)$ est continue. Par le théorème \ref{thm:hom} on sait aussi que $\id$ est un homéomorphisme donc $\id^{-1}: (X, \tau_2) \ra (X, \tau_1)$ est continue. Ainsi,
     $$\forall U \in \tau_1, \left( \id^{-1} \right)^{-1} (U) = U \in \tau_2$$
     donc $\tau_1 \subseteq \tau_2$. Comme $\tau_1 \subseteq \tau_2$ et $\tau_1 \supseteq \tau_2$, on a que $\tau_1 = \tau_2$.
   \end{preuve}
@@ -798,6 +798,87 @@ Le théorème \ref{thm:comp} nous donne une propriété agréable pour la topolo
 \begin{theoreme}[Tychonoff]
   Le produit d'espaces compacts est compact.
 \end{theoreme}
+Le theoreme signifie que si $(X, \tau)$ et $(Y, \sigma)$ sont des espaces topologiques compacts et $\mu$ est la topologie produit alors $(X \times Y, \mu)$ est compact.
+
+\begin{theoreme}
+  Soient $(X, \tau)$ et  $(Y, \sigma)$ des espaces topologiques compacts et soit $\mu$ la topologie produit. Si $K \subseteq X$ et $L \subseteq Y$ sont compacts alors $K \times L$ est compact dans $\mu$.
+
+  \tcblower
+  \begin{preuve}
+    Établissons d'abord les hypothèses.
+    \par $K$ est compact sur $\tau$ si et seulement si pour tout $\left\{ U_\alpha \right\}_{\alpha \in A}$ avec $U_\alpha \in \tau$ et $K \subseteq \bigcup\limits_{\alpha \in A} U_\alpha$, il existe $\alpha(j) \in A$, $1 \leq j \leq n$ tel que
+    $$\bigcup_{\alpha(j) \in A} U_{\alpha(j)} \supseteq K.$$
+    De manière similaire, $L$ est compact sur $\sigma$ si et seulement si pour tout $\left\{ V_\beta \right\}_{\beta \in B}$ avec $V_\beta \in \tau$ et $L \subseteq \bigcup\limits_{\beta \in B} V_\beta$, il existe $\beta(j) \in B$, $1 \leq j \leq n$ tel que
+    $$\bigcup_{\beta(j) \in B} V_{\beta(j)} \supseteq L.$$
+    % TODO: ???
+  \end{preuve}
+\end{theoreme}
+
+\subsection{Compacité dans les espaces metriques}
+Nous disons qu'un espace métrique est compact si la topologie induite par la métrique est compacte.
+
+\begin{definition}
+  Un espace métrique $(X, d)$ est dit \textbf{séquentiellement compact} si toute suite sur $X$ possède au moins une sous-suite convergente.
+\end{definition}
+Par exemple, $[a, b]$ muni de la topologie usuelle avec $a, b \in \R$ est séquentiellement compact.
+\par $]0, 1]$ n'est pas séquentiellement compact. Prenons la suite $\left( \frac{1}{2^n} \right)_{n \in \N}$. La limite de cette suite n'est pas dans $X$.
+\par  $\R$ n'est pas séquentiellement compact, car la suite $(n)_{n \in \N}$ ne possède pas de sous-suite convergente.
+
+\begin{theoreme}
+  Un espace métrique est compact si et seulement s'il est séquentiellement compact.
+
+  \tcblower
+  \begin{preuve}
+    Commençons par l'implication vers la droite. Supposons $(X, d)$ un espace métrique compact et $(x_n)_{n \in \N}$ une suite dans $X$. Supposons par l'absurde que $(X, d)$ n'est pas séquentiellement compact. Donc, $(x_n)_{n \in \N}$ n'admet pas de sous-suite convergente (cette suite est donc elle-même pas convergente).
+    \par Alors, $\forall x \in X, \exists \delta(x) > 0$ et $N(x) \in \N$ tel que si $n \geq N(x)$, on a que
+    $$x_n \not \in B(x, \delta(x)).$$
+    Remarquons que $x \in B(x, \delta(x))$ donc
+    $$X = \bigcup_{x \in X} \left\{ x \right\} \subseteq \bigcup_{x \in X} B(x, \delta(x)).$$
+    Cette dernière union est un recouvrement ouvert de $X$, et comme  $X$ est compact par hypothèse, il existe $x(1), \dots, x(n)$ tel que
+    $$X \subseteq \bigcup_{i=1}^n B(x(i), \delta\left( x(i) \right).$$
+    Si $n \geq \max\limits_{1 \leq i \leq n} N(i)$, alors on a que
+    $$x_n \not \in B\left( x(i), N(i) \right) \quad \forall i \in \{1, \dots, n \}.$$
+    Donc, comme $x_n \in X$ et 
+    $$x_n \not \in \bigcup_{i=1}^n B(x(i), \delta(x(i)))$$
+    C'est une contradiction, car l'union ci-dessus est un recouvrement de $X$ par construction.
+  \end{preuve}
+\end{theoreme}
+Pour la réciproque de ce théorème, nous allons passer par un lemme intermédiaire.
+
+\begin{lemme}
+  Supposons que $(X, d)$ est un espace métrique séquentiellement compact et que la collection $\left\{ U_\alpha \right\}_{\alpha \in A}$ est un recouvrement ouvert de $X$. Alors, il existe un $\delta > 0$ tel que, pour chaque  $x \in X$ donnée, il existe $\alpha(x) \in A$ tel que $B(x, \delta) \subseteq U_{\alpha(x)}$.
+
+  \tcblower
+  \begin{preuve}
+    Supposons par l'absurde que l'affirmation est fausse. Alors, $\forall n \in \N, \exists x_n \in X$ tel que $\forall \alpha(x) \in A, B(x_n, 2^{-n}) \not \subseteq U_{\alpha(x)}$. Par hypothèse, $X$ est séquentiellement compact donc $(x_n)_{n \in \N}$ a une sous-suite convergente dans $X$. Ceci équivaut à écrire que  $\exists x_* \in X$ et $(n_l)_{l \in \N}$ strictement croissant telle que $$\lim_{l \ra \infty} d(x_{n_l}, x_*) = 0.$$
+    Comme $x_* \in X$, par hypothèse, il existe $\alpha(x_*) \in A$ tel que $x_* \subseteq U_{\alpha(x_*)}$ car $\left\{ U_\alpha \right\}_{\alpha \in A}$ est un recouvrement de $X$. Comme on est dans un espace métrique, $\exists \delta_* >0$ tel que $B(x_*, \delta_*) \subseteq U_{\alpha(x_*)}$.
+    \par Puisque $\left( x_{n_l} \right)_{l \in \N}$ converge vers $x_*$, nous pouvons prendre $l \in \N $ tel que $d(x_{n_l}, x_*) < \frac{\delta_*}{2}$ et tel que $2^{-n_l} \leq \frac{\delta_*}{2}$. Nous avons que $B(x_{n_l}, 2^{-n_l}) \subseteq B(x_*, \delta_*)$ parce que $\forall x\in B(x_{n_l}, 2^{-n_l})$, 
+    \begin{align*}
+      d(x, x_*) &\leq d(x, x_{n_l}) + d(x_{n_l}, x_*) \\
+                &\leq  2^{-n_l} + \frac{\delta_*}{2} \\
+                &\leq  \frac{\delta_*}{2} + \frac{\delta_*}{2} = \delta_*.
+    \end{align*}
+    On a que $B(x_{n_l}, 2^{-n_l}) \subseteq B(x_*, \delta_*) \subseteq U_{\alpha(x_*)}$. Cela mène à une contradiction et achevé la preuve.
+  \end{preuve}
+\end{lemme}
+Reprenons la preuve du théorème précédent.
+
+\begin{propo}
+  Si l'espace métrique $(X, d)$ est séquentiellement compact, alors il est compact.
+
+  \tcblower
+  \begin{preuve}
+    Soit $\left\{ U_\alpha \right\}_{\alpha \in A}$ un recouvrement quelconque de $X$. Par le lemme ci-dessus, il existe $\delta > 0$ tel que $\forall x \in X, \exists \alpha(x) \in A$ tel que $B(x, \delta) \subseteq U_{\alpha(x)}$ car nous supposons $(X, d)$ séquentiellement compact.
+    \par Montrons qu'il existe un ensemble $S \subset X$ tel que
+    $$X = \bigcup_{s \in S} B(s, \delta).$$
+    Supposons par l'absurde que cela est faux: soit $x_0\in X$. Choisissons $x_1$ tel que $x_1 \in X \setminus B(x_0, \delta)$. De même, $x_{n+1} \in X \setminus \bigcup\limits_{i=0}^n B(x_i, \delta)$. Ceci constitue une suite $(x_n)_{n \in \N}$, et par hypothèse de compacité séquentielle, il existe une sous-suite convergente de $(x_n)_{n \in \N}$. Or, ceci est une contradiction, car $d(x_j, x_k) > \varepsilon \forall j \not k$.
+    \par Ainsi, il existe $S \subset X$ fini tel que
+    $$X = \bigcup_{s \in S} B(s, \delta).$$
+    Puisque $\forall s \in S, \exists \alpha(s) \in A$ tel que $B(s, \delta) \subseteq U_{\alpha(s)}$, on a que
+    $$X \subseteq \bigcup_{s \in S}B(s, \delta) \subseteq \bigcup_{s \in S} U_{\alpha(s)}.$$
+    Et comme $S$ est un ensemble fini, on a bien que $\left\{ U_{\alpha(s)} \right\}_{\alpha(s) \in A}$ est un sous-recouvrement fini. $(X, d)$ est donc compact.
+  \end{preuve}
+\end{propo}
 \newpage
 
 \begin{figure}[ht]
