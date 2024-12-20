@@ -747,7 +747,7 @@ Le théorème \ref{thm:comp} nous donne une propriété agréable pour la topolo
 
 % TODO: finish this
 
-\begin{theoreme}
+\begin{theoreme}\label{thm:hom}
   Soit $(X, \tau)$ un espace topologique compact et $(Y, \sigma)$ un espace topologique d'Hausdorff. Si $f: X \ra Y$ est une bijection continue, alors $f$ est un homéomorphisme.
 
   \tcblower
@@ -760,7 +760,7 @@ Le théorème \ref{thm:comp} nous donne une propriété agréable pour la topolo
   \end{preuve}
 \end{theoreme}
 
-\begin{lemme}
+\begin{lemme}\label{lem:id}
   Soient $\tau_1$ et $\tau_2$ des topologies sur un ensemble $X$. L'application identité
   $$\id: (X, \tau_1) \lra (X, \tau_2),$$
   donnée par $\id(x) = x$ est continue si et seulement si $\tau_1 \supseteq \tau_2$.
@@ -768,13 +768,31 @@ Le théorème \ref{thm:comp} nous donne une propriété agréable pour la topolo
   \tcblower
   \begin{preuve}
     Montrons d'abord l'implication vers la droite. Soit $U \in \tau_2$. Par continuité de $\id$, on sait que $\id^{-1}(U) = U \in \tau_2$ donc $\tau_2 \subseteq \tau_1$.
-    Pour l'implication vers la gauche, supposons que $\tau_2 \subseteq \tau_1$. Comme $\forall U \in \tau_2$, on a que $U \in \tau_1$, donc
+    \par Pour l'implication vers la gauche, supposons que $\tau_2 \subseteq \tau_1$. Comme $\forall U \in \tau_2$, on a que $U \in \tau_1$, donc
     $$\id^{-1}(U) = U \in \tau_1,$$
     ce qui implique que $\id$ est continue.
   \end{preuve}
 \end{lemme}
 
+\begin{theoreme}
+  Soient $\tau_1$ et $\tau_2$ des topologies sur le même ensemble $X$.
+  \begin{enumerate}
+    \item Si $\tau_1 \supseteq \tau_2$ et $\tau_1$ est compact, alors $\tau_2$ l'est aussi.
+    \item Si $\tau_1 \supseteq \tau_2$ et $\tau_2$ est Hausdorff, alors $\tau_1$ l'est aussi.
+    \item Si $\tau_1 \supseteq \tau_2$ et $\tau_1$ est compact et $\tau_2$ est Hausdorff, alors $\tau_1 = \tau_2$.
+  \end{enumerate}
 
+  \tcblower
+  \begin{preuve}
+    1. Comme $\tau_1 \supseteq \tau_2$, par le théorème \ref{lem:id} on sait que $\id: (X, \tau_1) \ra (X, \tau_2)$ est continue. De plus, par le théorème \ref{thm:comp}, puisque $\tau_1$ est compact, $\forall U \in \tau_1$, $\id(U) = U \in \tau_2$ est compact. Donc, $\forall U \in \tau_2$, $U$ est compact donc $(X, \tau_2)$ est compact.
+    \par 2. Comme $\tau_1 \supseteq \tau_2$ et $\tau_2$ est Hausdorff, $\forall x, y \in X, \exists U, V \in \tau_2$ tels que $x \in U, y \in V$ et $U \cap V = \varnothing$. Comme $\id$ est continue
+    $$\id^{-1}(U \in \tau_2) = U \in \tau_1 \; \text{ et } \; \id^{-1}(V \in \tau_2) = V \in \tau_1.$$
+    On a donc que $x\in U, y \in V$ et $U \cap V = \varnothing$ avec $U, V \in \tau_1$ ce qui implique que $(X, \tau_1)$ est Hausdorff.
+    \par 3. Comme $\tau_1 \supseteq \tau_2$, l'application $\id: (X, \tau_1) \ra (X, \tau_2)$ est continue. Par le theoreme \ref{thm:hom} on sait aussi que $\id$ est un homéomorphisme donc $\id^{-1}: (X, \tau_2) \ra (X, \tau_1)$ est continue. Ainsi,
+    $$\forall U \in \tau_1, \left( \id^{-1} \right)^{-1} (U) = U \in \tau_2$$
+    donc $\tau_1 \subseteq \tau_2$. Comme $\tau_1 \subseteq \tau_2$ et $\tau_1 \supseteq \tau_2$, on a que $\tau_1 = \tau_2$.
+  \end{preuve}
+\end{theoreme}
 \newpage
 
 \begin{figure}[ht]
