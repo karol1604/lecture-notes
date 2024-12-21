@@ -879,6 +879,85 @@ Reprenons la preuve du théorème précédent.
     Et comme $S$ est un ensemble fini, on a bien que $\left\{ U_{\alpha(s)} \right\}_{\alpha(s) \in A}$ est un sous-recouvrement fini. $(X, d)$ est donc compact.
   \end{preuve}
 \end{propo}
+
+\section{Connexité}
+\subsection{Espaces connexes}
+
+\begin{definition}
+  Un espace topologique $(Y, \sigma)$ est dit \textbf{disconnexe} si nous pouvons trouver des ensembles ouverts non-vides $U$ et $V$ tels que $U \cup V = Y$ et $U \cap V = \varnothing$. Un espace qui n'est pas disconnexe est \textbf{connexe}.
+\end{definition}
+
+\begin{definition}
+  Si $E$ est un sous-ensemble d'un espace topologique $(X, \tau)$, alors $E$ est dit connexe (resp. disconnexe) si la topologie de sous-espace sur $E$ est connexe (resp. disconnexe).
+\end{definition}
+
+\begin{lemme}
+ Si $E$ est un sous-ensemble d'un espace topologique $(X, \tau)$, alors $E$ est disconnexe si et seulement si nous pouvons trouver des ensembles ouverts  $U$ et $V$ tels que $U \cup V \supseteq E$, $U \cap V \cap E = \varnothing , U \cap E \not = \varnothing$ et $V \cap E \not = \varnothing$.
+\end{lemme}
+Par exemple, $(X, \tau_\mathrm{ind})$ est clairement connexe, car si $U, V \in \tau_\mathrm{ind}$ avec $U \cup V = X$ et $U \cap V = \varnothing $ alors forcement un des deux ensembles est le vide.
+
+\begin{theoreme}
+  Soit $(X, \tau)$ un espace topologique. S'il est connexe et $f: X \ra Y$ est une fonction continue, alors $f(X)$ est connexe.
+
+  \tcblower
+  \begin{preuve}
+    Démontrons la contraposée: si $f: X \ra Y$ est continue et $f(X)$ disconnexe, alors $X$ est disconnexe.
+    \par Par définition de disconnexité, $\exists U, V \in \tau$ tel que $f(X) \subseteq U \cup V$, $U \cap V \cap f(X) = \varnothing$, $U \cap f(X) \not = \varnothing $ et $V \cap f(X) \not = \varnothing $.
+    \par On a que $f^{-1}(U) \cup f^{-1}(V) = f^{-1}(U \cup V) \supseteq f^{-1}\left( f(X) \right) \supseteq X$ donc $X \subseteq f^{-1}(U) \cup f^{-1}(V)$.
+    \par Par continuité de $f$, on sait que  $f^{-1}(U), f^{-1}(V) \in \tau$. Comme $U \cap f(X) \not = \varnothing $, $\exists x \in X$ tel que $f(x) \in U$ ce qui implique $X \cap f^{-1}(U) \not = \varnothing $. De manière analogue, $X \cap f^{-1}(V) \not = \varnothing$.
+    \par Si $x \in f^{-1}(U) \cap f^{-1}(V) \cap f^{-1}\left( f^{-1}(X) \right)$, alors on trouve que
+    \begin{align*}
+      f(x) &\in f \left( f^{-1}(U) \cap f^{-1}(V) \cap f^{-1}(f(X)) \right) \\
+           &\subseteq f(f^{-1}(U)) \cap f(f^{-1}(V)) \cap f(f^{-1}(f(X))) \\
+           &\subseteq U \cap V \cap f(X).
+    \end{align*}
+    Or, ceci est impossible par hypothèse, car $U \cap V \cap f(X) = \varnothing$. Donc, $f^{-1}(U) \cap f^{-1}(V) \cap X = \varnothing $ ce qu'implique que $X$ est disconnexe.
+  \end{preuve}
+\end{theoreme}
+
+\begin{lemme}\label{lem:loc}
+  Soit $(X, \tau)$ un espace topologique et $A$ un ensemble. Soit $\Delta$ la topologie discrete sur $A$. Soit $f: X \ra A$ une fonction. Les affirmations suivantes sont equivalentes.
+  \begin{enumerate}
+    \item Si $x \in X$ alors nous pouvons trouver un $U \in \tau$ avec $x \in U$ tel que $f$ est constante sur $U$.
+    \item Si $x \in A$, alors $f^{-1}(\{ x \}) \in \tau$.
+    \item L'application $f: (X, \tau) \ra (A, \Delta)$ est continue.
+  \end{enumerate}
+
+  \tcblower
+  \begin{preuve}
+  Prouvons que l'affirmation 1 implique la 2. Soit $y \in A$ et posons $U = f^{-1}\left( \{ y\} \right)$. Alors par hypothèse, $\forall x \in U, \exists U_x \in \tau$ tel que $x \in U_x$ et $f {\restriction_{U_x}}$ est constante. Comme $\forall x \in U, U_x \subseteq U$, on a que
+  $$\bigcup_{x \in U} U_x \subseteq U.$$
+  De plus,
+  $$U = \bigcup_{x \in U} \left\{ x \right\} \subseteq \bigcup_{x \in U} U_x.$$ 
+  Donc $U = \bigcup\limits_{x \in U} U_x$, et comme tout $U_x \in \tau$, il suit que $U \in \tau$.
+  \end{preuve}
+\end{lemme}
+
+\begin{definition}
+  Si les conditions du lemme \ref{lem:loc} sont respectées, nous disons que $f$ est localement constante.
+\end{definition}
+
+\begin{theoreme}
+  Si $A$ contient au moins deux points, alors un espace topologique $(X, \tau)$ est connexe si et seulement si toute fonction localement constante $f: X \ra A$ est constante.
+
+  \tcblower
+  \begin{preuve}
+    Prouvons d'abord l'implication vers la droite. Supposons $(X, \tau)$ connexe et $f: (X, \tau) \ra (A, \Delta)$ continue. Comme $\Delta$ est la topologie indiscrète, pour $t \in X$, on a que $\left\{ f(t) \right\}, A \setminus \left\{ f(t) \right\} \in \Delta$ et donc
+    \begin{align*}
+      U &= \left\{ x \in X \mid f(x) = f(t) \right\} = f^{-1}(\{ f(t)\}) \\
+      V &= \left\{ x \in X \mid f(x) \not = f(t) \right\} = f^{-1}( A \setminus \{ f(t)\}) 
+    \end{align*}
+    sont ouverts. Comme $U \cap V = \varnothing , U \cup V = X$ et $X$ connexe, on a que $V = \varnothing $ et $U = X$ et donc  $f$ est constante par le lemme précédent.
+
+    \par Ensuite, montrons l'implication vers la gauche. Prouvons la contraposée: si $X$ est disconnexe, alors $f: X \ra A$ localement constante n'est pas constante.
+    \par Comme $(X, \tau)$ est disconnexe, $\exists U, V \in \tau$ tel que $U \cap V = \varnothing , U \cup V = X$ et $U, V \not = \varnothing $. Choisissons $a, b \in A$, $a \not = b$ et on pose
+    $$f(x) = \begin{cases}
+      a & \text{ si } x\in U\\
+      b & \text{ si } x \in V
+    \end{cases}$$
+    Nous obtenons alors une fonction continue, localement constante mais pas constante.
+  \end{preuve}
+\end{theoreme}
 \newpage
 
 \begin{figure}[ht]
