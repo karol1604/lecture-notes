@@ -958,12 +958,111 @@ Par exemple, $(X, \tau_\mathrm{ind})$ est clairement connexe, car si $U, V \in \
     Nous obtenons alors une fonction continue, localement constante mais pas constante.
   \end{preuve}
 \end{theoreme}
-\newpage
 
+\begin{cor}
+  \begin{enumerate}
+    \item Un espace topologique $(X, \tau)$ est connexe si et seulement si toute fonction continue a valeurs entieres $f: X \ra \R$ est constante.
+    \item Un espace topologique $(X, \tau)$ est connexe si et seulement si toute fonction continue $f: X \ra \R$ a valeurs dans $\left\{ 0, 1 \right\}$ est constante.
+  \end{enumerate}
+\end{cor}
+Ce corollaire est tout simplement un cas particuklier du theoreme precedent.
+
+\begin{lemme}
+  Considérons un espace topologique $(X, \tau)$.
+  \begin{enumerate}
+    \item Soit $x_0 \in  X$. Si $x_0 \in E_\alpha$ et $E_\alpha$ est connexe pour tout $\alpha \in A$, alors $\bigcup\limits_{\alpha \in A} E_\alpha$ est connexe.
+    \item Définissons $x \sim y$ s'il existe un ensemble connexe $E$ tel que  $x, y \in E$. Alors $\sim$ est une relation d'équivalence.
+    \item Les classes d'équivalences $[x]$ sont connexes.
+    \item Si $F$ est connexe et $F \supseteq [x]$ alors $F = [x]$.
+  \end{enumerate}
+
+  \tcblower
+  \begin{preuve}
+    1. Soit $U, V \in \tau$ tels que $U \cup V \supseteq \bigcup\limits_{\alpha \in A} E_\alpha$ et $U \cap V \cap \left( \bigcup\limits_{\alpha \in A} E_\alpha \right) = \varnothing$. Sans perte de généralité, supposons $x_0 \in U$. Alors, $\forall  \alpha \in A, E_\alpha \cap V = \varnothing $ car $E_\alpha$ est connexe. Donc $\left( \bigcup\limits_{\alpha \in A} E_\alpha \right) \cap V = \bigcup\limits_{\alpha \in A} (E_\alpha \cap V) = \varnothing$. L'ensemble $\bigcup\limits_{\alpha \in A}E_\alpha$ est connexe.
+    \par 2. Montrons la réflexivité. Posons $U, V \in \tau$ tels que $\left\{ x \right\} \subseteq U \cup V$ et $U \cap V \cap \left\{ x \right\} = \varnothing$. Alors,
+    \begin{itemize}
+      \item[$\bullet$] Soit $x \not \in U$, donc $\left\{ x \right\} \cap U = \varnothing$ ce qu'implique que $\left\{ x \right\}$ est connexe.
+      \item[$\bullet$] Soit $x \not \in V$, donc $\left\{ x \right\} \cap V = \varnothing$ ce qu'implique que $\left\{ x \right\}$ est connexe.
+    \end{itemize}
+    donc $x \sim x$ car $\left\{ x \right\}$ est connexe.
+    \par Montrons la symétrie. Si $x \sim y$ alors il existe $E$ connexe tel que $x, y \in E$. Trivialement, $y, x \in E$ donc $y \sim x$.
+    \par Montrons la transitivité. Si $x \sim y$ alors il existe $E$ connexe tel que $x, y \in E$. De manière analogue, si $y \sim z$ alors, il existe $E'$ connexe tel que $y, z \in E'$. Par le point 1 de ce lemme, comme $y \in E$ et $y \in E'$, on sait que $E \cup  E'$ est connexe. Donc $x \sim z$ car $x, z \in E\cup E'$ qui est connexe.
+    \par 3. Si $y \in [x]$, alors il existe un ensemble $E_y$ connexe tel que $x, y \in E_y$. Par définition, $[x] \supseteq E_y$ ce qu'implique
+    $$[x] = \bigcup_{y \in [x]} \left\{ y \right\} \subseteq \bigcup_{y \in [x]} E_y \subseteq [x].$$
+    C'est-à-dire, $[x] = \bigcup\limits_{y \in [x]} E_y$. Comme $x \in E_y, \forall y \in [x]$, par 1. nous savons que $[x]$ est connexe.
+    \par 4. Si $F$ est connexe et $[x] \subseteq F$ alors $\forall f \in F, f \sim x$. Donc $f \in [x]$. Ainsi, $F \subseteq [x]$ et donc $[x] = F$ qui est connexe.
+  \end{preuve}
+\end{lemme}
+Les ensembles $[x]$ sont appelées les composantes connexes de $(X, \tau)$.
+
+\subsection{Espaces connexes par arcs}
+\begin{definition}
+  Soit $(X, \tau)$ un espace topologique. Nous disons que $x, y \in X$ sont relié par un chemin s'il existe une fonction continue $\gamma: [0, 1] \ra X$ telle que $\gamma(0) = x$ et $\gamma(1) = y$. $\gamma$ est un chemin de $x$ vers $y$.
+\end{definition}
+Dans la définition, $[0, 1]$ est muni de la topologie usuelle.
 \begin{figure}[ht]
   \centering
   \incfig{drawing}
   \caption{Chemin $\gamma$ reliant $x$ à $y$}
 \end{figure}
+
+\begin{lemme}
+  Si $(X, \tau)$ est un espace topologique et si nous écrivons $x \sim y$ si $x$ est relié à $y$ par un chemin, alors $\sim$ est une relation d'équivalence.
+
+  \tcblower
+  \begin{preuve}
+    Montrons la réflexivité. Si $x \in X$, on pose pour $t \in [0, 1], \gamma(t) = x$. Ainsi, $\gamma(0) = \gamma(1) = x$ est continue. Donc $x \sim x$.
+    \par Montrons la symétrie. Si  $x \sim y$, $\exists \gamma: [0, 1] \ra X$ continue telle que $\gamma(0) = x$ et $\gamma(1) = y$. On pose  $\tilde{\gamma}(t) = \gamma(1-t) \forall t \in [0, 1]$. La fonction $\tilde{\gamma}$ est clairement continue car c'est la composée de fonctions continues et $\tilde{\gamma}(0) = \gamma(1) = y$ et $\tilde{\gamma(1)} = \gamma(0) = x$ donc $y \sim x$.
+        \par Montrons la transitivité. Si $x \sim y$ et $y \sim z$, il existe $\gamma_1, \gamma_2: [0, 1] \ra X$ tel que $\gamma_1(0)=x, \gamma_1(1) = y, \gamma_2(0) = y$ et $\gamma_2(1) = z$. Posons $\gamma: [0, 1] \ra X$ telle que
+     $$\gamma(t) = \begin{cases}
+       \gamma_1(2t) & \text{si } t \in [0, \frac{1}{2}] \\
+       \gamma_2(2t - 1) & \text{si } t \in ]\frac{1}{2}, 1]
+     \end{cases}$$
+     Soit $U \subseteq X$ ouvert. Alors
+     $$\gamma^{-1}(U) = \left\{ \frac{t}{2} \,\middle\vert\, t \in \gamma_1^{-1}(U) \right\} \cup \left\{ \frac{1+t}{2} \,\middle\vert\, t \in \gamma_2^{-1}(U) \right\}$$ 
+     est ouvert donc $\gamma$ est continue. Comme $\gamma(0) = x$ et $\gamma(1)=z$, $x \sim z$.
+  \end{preuve}
+\end{lemme}
+Définissons maintenant la connexité par arc.
+
+\begin{definition}
+  Un espace topologique $(X,\tau)$ est connexe par arcs si deux points quelconques de $X$ peuvent toujours être reliés par un chemin.
+\end{definition}
+Par exemple, l'espace euclidien $\R^n$ est connexe par arcs. En effet, pour $x, y \in \R^n$,
+$$\gamma(t) = (1-t)x + ty$$
+est un chemin de  $x$ à $y$.
+
+\begin{theoreme}
+  Si un espace topologique est connexe par arcs alors, il est connexe.
+
+  \tcblower
+  \begin{preuve}
+    Soit $(X, \tau)$ un espace topologique connexe par arcs et $U, V \in \tau$ tels que $U \cap V = \varnothing$ et $U \cup V = X$. Si $U$ n'est pas vide, choisissons $x \in U$. Si $y \in X$, il existe $f: [0, 1] \ra X$ continue telle que $f(0) = x$ et $f(1) = y$. Comme   $f$ est continue et $[0, 1]$ est connexe, on sait par un théorème précédent que $f([0, 1])$ est connexe. Comme
+    \begin{align*}
+      U \cap V \cap f([0, 1]) = \varnothing \\
+      U \cup V \supseteq f([0,1]) \\
+      U \cap f([0, 1]) \not = \varnothing
+    \end{align*}
+    Vu que  $f\left( [0, 1] \right) $ est connexe, on sait que $U \supseteq f([0, 1])$ ce qu'implique que $y \in Y$. Donc $U = X$, $V = \varnothing $ ce qu'implique que $(X, \tau)$ est connexe.
+  \end{preuve}
+\end{theoreme}
+Une conséquence directe de ce théorème est que $\R^n$ est connexe.
+
+\begin{theoreme}
+  Considérons $\R^n$ muni de la topologie usuelle. Alors tout sous-ensemble ouvert $\Omega$ de $\R^n$ connexe est connexe par arcs.
+
+  \tcblower
+  \begin{preuve}
+    Supposons que $\Omega \not = \varnothing$ et prenons $x \in \Omega$. Soient
+    \begin{align*}
+      U &= \left\{ w \in \Omega \mid w \text{ relié à $x$ par un chemin}  \right\} \subseteq \Omega \\
+      V &= \left\{ w' \in \Omega \mid w' \text{ pas relié à $x$ par un chemin} \right\} \subseteq \Omega.
+    \end{align*}
+    Supposons $u \in \Omega$. Comme $ \Omega$ est ouvert, il existe $B(u, \delta)$ avec $\delta > 0$ telle que  $B(u, \delta) \subseteq \Omega$. Si $y \in B(u, \delta)$ alors $u$ est relié à $y$ par un chemin. Il suffit de prendre $\gamma(t) = (1-t)y + tu$. Comme  $x \sim u$ et $u \sim y$, par transitivité, on sait que $x \sim y$ et donc $y \in U$. Cela implique que $B(u, \delta) \subseteq U$.
+    \par Supposons que $v \in V$. Comme $ \Omega$ est ouvert, il existe $B(v, \delta)$ avec $\delta > 0$ telle que  $B(v, \delta) \subseteq \Omega$. Si $y \in Bvu, \delta)$ alors $v$ est relié à $y$ par un chemin. Si $y \sim x$, alors $v$ l'est aussi.
+    % TODO: finish
+    \par Puisque $U \cup V = \Omega, U \cap V = \varnothing $. De plus, $\Omega$ est connexe donc $U = \Omega$, car $x \in U$ et donc $V= \varnothing $. Tout ça implique que $\Omega$ est connexe par arcs.
+  \end{preuve}
+\end{theoreme}
 
 \end{document}
