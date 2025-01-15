@@ -75,7 +75,7 @@ Ensuite, donnons quelque exemples d'espaces métriques.
     Vérifions les axiomes de la métrique.
     \begin{itemize}
       \item[$D_1$] Si $d(x, y) = 0$, alors $d_i(x_i, y_i) = 0$ pour tout $i$. Donc $x_i = y_i$ pour tout $i$, donc $x = y$.
-        \newline Si $x = y$ alors $d_i(x_i, y_i) = 0$ pour tout $i$, donc $d(x, y) = 0$.
+        \par Si $x = y$ alors $d_i(x_i, y_i) = 0$ pour tout $i$, donc $d(x, y) = 0$.
       \item[$D_2$] Puisque $d_i(x_i, y_i) = d_i(y_i, x_i)$ pour tout $i$, on a $d(x, y) = d(y, x)$.
       \item[$D_3$] Soit $z = (z_1, \dots, z_n) \in X$ et $j, k \in \N$ tels que
         $$ d(x, y) = d_j(x_j, y_j) $$
@@ -117,7 +117,7 @@ $$ \left\{ x \in \R^2 : d_\text{eucl}(x, a) \leq 1 \right\} \quad \text{et} \qua
   \tcblower
   \begin{preuve}
     Prouvons tout d'abord l'implication vers la droite. Supposons que $(A, d_A)$ et $(B, d_B)$ sont isométriques. Il existe donc des fonctions réciproques $f: A \ra B$ et $g: B \ra A$ ce qui implique que $f$ est une bijection. De plus, $f$ satisfait la condition $2$ par \eqref{def:isom}.
-    \newline Prouvons maintenant l'implication vers la gauche. Supposons que $f: A \ra B$ est une bijection telle que pour tout $x, y \in A$, $d_B(f(x), f(y)) = d_A(x, y)$. Vu que $f$ est bijection, elle est inversible. Soit $g: B \ra A$ telle que $f$ et $g$, déterminée en posant $$g(b) = a \text{ si  } f(a) = b$$ Pour tout $u, v \in B$, soient $x = g(u)$ et $y = g(v)$. Alors $$d_A(g(u), g(v)) = d_A(x, y)$$
+    \par Prouvons maintenant l'implication vers la gauche. Supposons que $f: A \ra B$ est une bijection telle que pour tout $x, y \in A$, $d_B(f(x), f(y)) = d_A(x, y)$. Vu que $f$ est bijection, elle est inversible. Soit $g: B \ra A$ telle que $f$ et $g$, déterminée en posant $$g(b) = a \text{ si  } f(a) = b$$ Pour tout $u, v \in B$, soient $x = g(u)$ et $y = g(v)$. Alors $$d_A(g(u), g(v)) = d_A(x, y)$$
     Par 2, on a $$d_A(x, y) = d_B(f(x), f(y)) = d_B(u, v)$$
   \end{preuve}
 \end{theoreme}
@@ -154,7 +154,7 @@ $$e \in \R : \{ x \in \R \mid d(x, e) < \delta \} = ]e -\delta, e + \delta[$$
   $$B(x, r) = \{ y \in X \mid d(x, y) < r \}$$
 \end{definition}
 Prenons un exemple d'un ensemble qui n'est pas ouvert. Pour $(\R^n, d_\text{euc})$ et $x \in \R$, l'ensemble $\{ x \}$ n'est pas ouvert.
-\newline Si $(X, d_\varepsilon)$ est un espace métrique avec la métrique discrète, alors
+\par Si $(X, d_\varepsilon)$ est un espace métrique avec la métrique discrète, alors
 $$\{ x \} = B\left(x, \frac{1}{2}\right)$$
 et tout les sous-ensembles de $X$ sont ouverts. Notons que $d(x, x) = 0 < \frac{1}{2}$ et $d(x, y) = 1 > \frac{1}{2}$ pour $x \neq y$. Si $x \in E \subset X$ alors $d(x, y) < \frac{1}{2}$ implique $y = x \in E$ et donc $E$ est ouvert.
 
@@ -173,9 +173,9 @@ et tout les sous-ensembles de $X$ sont ouverts. Notons que $d(x, x) = 0 < \frac{
         $$x \in \varnothing \text{ quand } d(x, e) < \delta$$
         est vraie pour tout $e \in \varnothing$ donc $\varnothing$ est ouvert.
       \item Si $e \in \bigcup\limits_{\alpha \in A} U_\alpha$ alors on trouve $\alpha_1 \in A$ particulier tel que $e \in U_{\alpha_1}$. Comme $U_{\alpha_1}$ est ouvert, on peut trouver $\delta > 0$ tel que $x \in U_{\alpha_1}$ quand $d(x, e) < \delta$. 
-        \newline Ensuite, comme $U_{\alpha_1} \subseteq \bigcup\limits_{\alpha \in A} U_\alpha$ on a $x \in \bigcup\limits_{\alpha \in A} U_\alpha$ quand $d(x, e) < \delta$ ce qui implique que $\bigcup\limits_{\alpha \in A} U_\alpha$ est ouvert.
+        \par Ensuite, comme $U_{\alpha_1} \subseteq \bigcup\limits_{\alpha \in A} U_\alpha$ on a $x \in \bigcup\limits_{\alpha \in A} U_\alpha$ quand $d(x, e) < \delta$ ce qui implique que $\bigcup\limits_{\alpha \in A} U_\alpha$ est ouvert.
       \item Si $e \in \bigcap\limits_{j=1}^{n} U_j$ alors $e \in U_j$ pour tout $1 \leq j \leq n$. Comme $U_j$ est ouvert, on peut trouver $\delta_j > 0$ tel que $x \in U_j$ quand $d(x, e) < \delta_j$.
-        \newline Posons $\delta = \min\{\delta_1, \dots, \delta_n\}$. Clairement, $\delta > 0$ donc $x \in \bigcap\limits_{j=1}^{n} U_j$ quand $d(x, e) < \delta$ ce qui implique que $\bigcap\limits_{j=1}^{n} U_j$ est ouvert.
+        \par Posons $\delta = \min\{\delta_1, \dots, \delta_n\}$. Clairement, $\delta > 0$ donc $x \in \bigcap\limits_{j=1}^{n} U_j$ quand $d(x, e) < \delta$ ce qui implique que $\bigcap\limits_{j=1}^{n} U_j$ est ouvert.
     \end{enumerate}
   \end{preuve}
 \end{theoreme}
@@ -183,10 +183,10 @@ et tout les sous-ensembles de $X$ sont ouverts. Notons que $d(x, x) = 0 < \frac{
   Une interesection infinie d'ouverts n'est pas nécessairement ouverte.
 \end{remarque}
 Considérons par exemple $\R$ muni de la métrique usuelle. Par exemple, pour tout $n \in \N_*$, l'ensemble $]-1, \frac{1}{n}[$ est ouvert mais l'intersection infinie $$\bigcap\limits_{n=1}^{\infty} ]-1, \frac{1}{n}[ \: = \: ]-1, 0]$$ n'est pas ouverte.
-\newline Pour un autre exemple, considérons $(\R^n, d_\text{euc})$. Nous avons que $B\left(x, \frac{1}{j}\right)$ est ouvert mais l'intersection infinie
+\par Pour un autre exemple, considérons $(\R^n, d_\text{euc})$. Nous avons que $B\left(x, \frac{1}{j}\right)$ est ouvert mais l'intersection infinie
 $$\bigcap_{j=1}^{\infty} B\left(x, \frac{1}{j}\right) = \{x\}$$
 ne l'est pas.
-\newline Pour éviter toute confusion, nous introduisons la notation suivante: soit $(X, d)$ et $(Y, \rho)$ des espaces métriques et $f: X \ra Y$ une fonction. Pour $U \subseteq Y$,
+\par Pour éviter toute confusion, nous introduisons la notation suivante: soit $(X, d)$ et $(Y, \rho)$ des espaces métriques et $f: X \ra Y$ une fonction. Pour $U \subseteq Y$,
 $$f^{-1}(U) = \{ x \in X \mid f(x) \in U \}$$
 \begin{theoreme}
   Soit $(X, d)$ et $(Y, \rho)$ des espaces métriques. Une fonction $f: X \ra Y$ est continue si et seulement si $f^{-1}(U)$ est ouvert dans $X$ quand $U$ est ouvert dans $Y$.
@@ -194,24 +194,24 @@ $$f^{-1}(U) = \{ x \in X \mid f(x) \in U \}$$
   \tcblower
   \begin{preuve}
     Pour la première partie de la preuve, supposons que $f$ est continue et que $U \subseteq Y$ est ouvert. Si $x \in f^{-1}(U)$, on peut trouver $y \in U$ tel que $y=f(x)$.
-    \newline Comme  $U \subseteq Y$ est ouvert, il existe $\varepsilon > 0$ tel que $z \in U$ quand $\rho(y, z) < \varepsilon$.
-    \newline Comme $f$ est continue, il existe $\delta > 0$ tel que
-    $$\rho(y, f(w)) = \rho(f(x), f(w)) < \epsilon \text{ quand } d(x, w) < \delta$$
+    \par Comme  $U \subseteq Y$ est ouvert, il existe $\varepsilon > 0$ tel que $z \in U$ quand $\rho(y, z) < \varepsilon$.
+    \par Comme $f$ est continue, il existe $\delta > 0$ tel que
+    $$\rho(y, f(w)) = \rho(f(x), f(w)) < \varepsilon \text{ quand } d(x, w) < \delta$$
     C'est a dire que $w \in f^{-1}(U)$ quand $d(x, w) < \delta$ ce qui implique que $f^{-1}(U)$ est ouvert.
-    \newline Pour la deuxième partie de la preuve, supposons que $f^{-1}(U)$ est ouvert quand $U\subseteq Y$ est ouvert. Si $x \in X$ et $\epsilon > 0$, on sait que la boule ouverte
-    $$B\left(f(x), \epsilon\right) = \left\{ y \in Y \mid \rho(f(x), y) < \epsilon \right\}$$
-    est ouverte. Alors $x \in f^{-1}\left(B(f(x), \epsilon)\right)$ et $f^{-1}\left(B(f(x), \epsilon)\right)$ est ouvert.
-    \newline Il existe donc $\delta > 0$ tel que 
-    $$w \in f^{-1}\left(B(f(x), \epsilon)\right) \text{ quand } d(x, w) < \delta$$
-    c'est a dire que $\rho(f(x), f(w)) < \epsilon$ quand $d(x, w) < \delta$ ce qui implique que $f$ est continue.
+    \par Pour la deuxième partie de la preuve, supposons que $f^{-1}(U)$ est ouvert quand $U\subseteq Y$ est ouvert. Si $x \in X$ et $\varepsilon > 0$, on sait que la boule ouverte
+    $$B\left(f(x), \varepsilon\right) = \left\{ y \in Y \mid \rho(f(x), y) < \varepsilon \right\}$$
+    est ouverte. Alors $x \in f^{-1}\left(B(f(x), \varepsilon)\right)$ et $f^{-1}\left(B(f(x), \varepsilon)\right)$ est ouvert.
+    \par Il existe donc $\delta > 0$ tel que 
+    $$w \in f^{-1}\left(B(f(x), \varepsilon)\right) \text{ quand } d(x, w) < \delta$$
+    c'est a dire que $\rho(f(x), f(w)) < \varepsilon$ quand $d(x, w) < \delta$ ce qui implique que $f$ est continue.
   \end{preuve}
 \end{theoreme}
 Avec ce théorème, on démontre la loi de composition très facilement: si $U$ est ouvert dans $Z$ alors, par continuité de $f$, $f^{-1}(U)$ est ouvert dans $Y$ et, par continuité de $g$, $(f \circ g)^{-1}(U) = g^{-1}\left(f^{-1}(U)\right)$ est ouvert dans $X$. Alors $f \circ g$ est continue.
 
 \subsection{Ensembles fermés dans les espaces métriques}
 \begin{definition}
-  Soit $x_n$ une suite dans un espace métrique $(X, d)$. Si pour $x \in X$ et $\epsilon >0$ donné, il existe un entier $N \geq 1$ (qui dépend que $\epsilon$) tel que
-  $$d(x_n, x) < \epsilon \text{ pour tout } n \geq N$$
+  Soit $x_n$ une suite dans un espace métrique $(X, d)$. Si pour $x \in X$ et $\varepsilon >0$ donné, il existe un entier $N \geq 1$ (qui dépend que $\varepsilon$) tel que
+  $$d(x_n, x) < \varepsilon \text{ pour tout } n \geq N$$
   nous disons que $x_n \ra x$ quand $n \ra \infty$ et que $x$ est la limite de la suite $x_n$.
 \end{definition}
 
@@ -220,13 +220,13 @@ Avec ce théorème, on démontre la loi de composition très facilement: si $U$ 
 
   \tcblower
   \begin{preuve}
-    Procédons a une preuve par l'absurde. Supposons que $x_n \ra x$ et $x_n \ra y$ avec $x \neq y$. Pour chaque $\epsilon > 0$, on peut trouver $N_1, N_2$ entier tel que
-    $$d(x_n, x) < \frac{\epsilon}{2} \text{ pour tout } n \geq N_1$$
+    Procédons a une preuve par l'absurde. Supposons que $x_n \ra x$ et $x_n \ra y$ avec $x \neq y$. Pour chaque $\varepsilon > 0$, on peut trouver $N_1, N_2$ entier tel que
+    $$d(x_n, x) < \frac{\varepsilon}{2} \text{ pour tout } n \geq N_1$$
     et
-    $$d(x_n, y) < \frac{\epsilon}{2} \text{ pour tout } n \geq N_2$$
+    $$d(x_n, y) < \frac{\varepsilon}{2} \text{ pour tout } n \geq N_2$$
     En posant $N = \max\{N_1, N_2\}$, on obtient
-    $$d(x, y) \leq d(x, x_n) + d(x_n, y) \leq \frac{\epsilon}{2} + \frac{\epsilon}{2} = \epsilon$$
-    Comme $\epsilon$ est arbitraire, on a $d(x, y) = 0$ ce qui implique que $x = y$.
+    $$d(x, y) \leq d(x, x_n) + d(x_n, y) \leq \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon$$
+    Comme $\varepsilon$ est arbitraire, on a $d(x, y) = 0$ ce qui implique que $x = y$.
   \end{preuve}
 \end{lemme}
 En utilisant le concept des suites et de leur limites, nous pouvons définir les ensembles fermés.
@@ -250,8 +250,8 @@ En utilisant le concept des suites et de leur limites, nous pouvons définir les
   Nous disons que $\tau$ est une \textbf{topologie} sur $X$ et que $(X, \tau)$ est un \textbf{espace topologique}.
 \end{definition}
 Si $(X, \tau)$ est un espace topologique, nous appelons ensembles ouverts les élèments de $\tau$.
-\newline Prenons un espace métrique $(X, d)$ et posons $\tau_d = \{U \subseteq X \mid U \text{ ouvert par } d\}$. Alors $(X, \tau_d)$ est un espace topologique et $\tau_d$ est appelé la \textbf{\it topologie induite par la métrique} $d$.
-\newline Prenons ensuite l'ensemble $X = \{0, 1\}$. On peut munir celui-ci de plusieurs structures d'espace topologique.
+\par Prenons un espace métrique $(X, d)$ et posons $\tau_d = \{U \subseteq X \mid U \text{ ouvert par } d\}$. Alors $(X, \tau_d)$ est un espace topologique et $\tau_d$ est appelé la \textbf{\it topologie induite par la métrique} $d$.
+\par Prenons ensuite l'ensemble $X = \{0, 1\}$. On peut munir celui-ci de plusieurs structures d'espace topologique.
 \begin{enumerate}
   \item Si on pose $\tau = \left\{ \varnothing, \{0, 1\} \right\}$, alors $\tau$ satisfait les 3 axiomes et est appelé la topologie indiscrète.
   \item Si on pose $\tau = \left\{ \varnothing, \{0\}, \{1\}, \{0, 1\} \right\}$, alors $\tau$ satisfait les 3 axiomes et est appelé la topologie discrète.
@@ -321,7 +321,7 @@ Définissons ensuite ce qu'est un ensemble ferme dans un espace topologique.
     1. Ceci est juste l'observation que
     $$\Int(A) = \bigcup \left\{ U \in \tau : U \subseteq A \right\} =\left\{ x \in A : \exists U \in \tau \text{ avec } x \in U \subseteq A \right\} $$
     2. Puisque $\Int(A) = \bigcup \left\{ U \in \tau : U \subseteq A \right\}$ nous savons que $\Int(A) \subseteq A$. Vu que l'union d'ouvert est ouverte, $\Int(A)$ est ouvert.
-    \newline Si $W \in \tau$ alors $W \subseteq A$ donc
+    \par Si $W \in \tau$ alors $W \subseteq A$ donc
     $$\Int(A) = \bigcup \left\{ U \in \tau : U \subseteq A \right\} \supseteq W$$
     et si $W \supseteq \Int(A)$ alors $W = \Int(A)$.
   \end{preuve}  
@@ -633,7 +633,7 @@ L'idée est qu'un ensemble est compact si chaque fois qu'il est recouvert par de
     On a en particulier que c'est un recouvrement de $[a, x]$ pour tout $x \in [a, b]$. Posons $S$ l'ensemble de tous les $x\in [a, b]$ tels que $[a, x]$ admet un sous-recouvrement fini de $\bigcup\limits_{i \in I} \U_i$. Il existe alors $i_0 \in I$ tel que $a \in \U_{i_0}$, donc $a \in S$.
     On déduit alors que $S$ est un sous-ensemble non vide de $\R$ borné par $b$. On peut poser
     $$x_0 \coloneq \sup S \in [a, b].$$
-    Ensuite, montrons par contradiction que $x_0 = b$. Supposons que $x_0 < b$ et notons que $x_0 > a$. En effet, il existe  $i_0 \in I$ et $\epsilon > 0$ tel que  $[a, a+\varepsilon] \subseteq \U_{i_0}$, et donc $x_0 \geq a + \varepsilon$.
+    Ensuite, montrons par contradiction que $x_0 = b$. Supposons que $x_0 < b$ et notons que $x_0 > a$. En effet, il existe  $i_0 \in I$ et $\varepsilon > 0$ tel que  $[a, a+\varepsilon] \subseteq \U_{i_0}$, et donc $x_0 \geq a + \varepsilon$.
     \par Prenons $i_0 \in I$ tel que $x_0 \in \U_{i_0}$ et $\varepsilon > 0$ tel que  $a \leq x_0 - \varepsilon < x_0 < x_0 + \varepsilon \leq b$. Alors
     $$[x_0 - \varepsilon, x_0 + \varepsilon] \subseteq \U_{i_0}.$$
     Puisque $x_0 - \varepsilon$ n'est pas un supremum de $S$, il existe $x_0 - \varepsilon \leq x_1 \leq x_0$ tel que $x_1 \in S$. De telle manière, l'intervalle $[a, x_1]$ admet un recouvrement fini, c'est-à-dire
